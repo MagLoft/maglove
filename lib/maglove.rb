@@ -1,5 +1,6 @@
 require "maglove/version"
 require "maglove/server"
+require "maglove/server/view"
 require "maglove/command/theme"
 require "maglove/command/core"
 require "maglove/command/compile"

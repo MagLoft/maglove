@@ -20,7 +20,8 @@ module MagLove
       templates = theme_config(:templates, self.theme)
       templates.each do |template|
         mount("/#{template}") do |req, res|
-          engine = Haml::Engine.new(parse_view("editor"))
+          view = View.editor
+          engine = Haml::Engine.new(view)
           debug("▸ rendering template: #{template}")
           res.body = engine.render(Object.new, theme: self.theme, contents: theme_dist_contents("templates/#{template}.html", self.theme), templates: templates, template: template)
         end
@@ -37,10 +38,6 @@ module MagLove
     
     def mount(path, &block)
       self.webrick.mount_proc(path, &block)
-    end
-    
-    def parse_view(view)
-      File.read("lib/maglove/server/views/#{view}.haml")
     end
     
     def run!
