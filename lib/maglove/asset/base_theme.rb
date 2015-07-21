@@ -8,8 +8,8 @@ module MagLove
         super(path, theme)
       end
     
-      def sprockets
-        Commander::Methods.base_sprockets(version)
+      def get_sprockets
+        base_sprockets(version)
       end
     
       def absolute_path

@@ -1,39 +1,8 @@
 #!/usr/bin/env ruby
 $:.push File.expand_path("../../lib", __FILE__)
 
-require "tilt"
-require "sprockets"
-require "ext/sprockets/asset"
-require "ext/sprockets/yaml_template"
-require "ext/sprockets/haml_template"
-require "ext/sprockets/less_template"
-require "ext/haml/style_builder"
-require "ext/haml/helpers"
-require "ext/haml/helpers/base"
-require "ext/haml/helpers/container"
-require "ext/haml/helpers/columns"
-require "ext/haml/helpers/image"
-require "ext/haml/helpers/heading"
-require "ext/haml/helpers/paragraph"
-require "ext/haml/helpers/banner"
-require "ext/haml/helpers/youtube"
-require "ext/haml/helpers/horizontal_rule"
-require "ext/commander/command"
-
-require "rubygems"
-require "bundler"
-require "active_support/all"
-require "dotenv"
-require "webrick"
-require "filewatcher"
-require "logging"
-require "therubyracer"
-require "less"
-require "haml"
-require "commander"
-require "zlib"
-require "archive/tar/minitar"
 require "maglove"
+
 Dotenv.load
 
 # Fix RbConfig warning

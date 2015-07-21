@@ -1,16 +1,24 @@
 module MagLove
   module Asset
     class Theme
+      include MagLove::Helper::AssetHelper
+      include MagLove::Helper::LogHelper
+      
       attr_accessor :path, :asset, :theme, :valid, :absolute_path
 
       def initialize(path, theme)
         self.path = path
-        self.theme = theme    
-        self.asset = sprockets.find_asset("#{absolute_path}")
+        self.theme = theme
+        begin
+          self.asset = get_sprockets.find_asset("#{absolute_path}")
+        rescue Exception => e
+          error("▸ #{e.message}")
+          self.asset = nil
+        end
       end
   
-      def sprockets
-        Commander::Methods.sprockets(theme)
+      def get_sprockets
+        sprockets(theme)
       end
 
       def valid?
@@ -21,6 +29,7 @@ module MagLove
         return false if not valid?
         FileUtils.mkdir_p(File.dirname(output_path))
         asset.write_to(output_path)
+        true
       end
   
       def absolute_path

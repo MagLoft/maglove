@@ -26,7 +26,7 @@ module MagLove
           invoke_task("util:watch", options)
           
           # browser sync
-          options.files = "dist/themes/#{options.theme}/*.css, dist/themes/#{options.theme}/*.js, dist/themes/#{options.theme}/templates/*.html"
+          options.files = "dist/themes/#{options.theme}/*.css, dist/themes/#{options.theme}/*.js, dist/themes/#{options.theme}/templates/*.html, dist/themes/#{options.theme}/images/**/*"
           options.start_path = theme_config(:templates, options.theme).first
           invoke_task("util:browser_sync", options)
           

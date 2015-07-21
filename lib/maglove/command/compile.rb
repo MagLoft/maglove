@@ -7,20 +7,17 @@ module MagLove
         
         task :coffee, theme: "!" do |args, options|
           asset = theme_asset("theme.coffee", options.theme)
-          asset.write!
-          debug("▸ created #{asset.logical_path}")
+          debug("▸ created #{asset.logical_path}") if asset.write!
         end
   
         task :less, theme: "!" do |args, options|
           asset = theme_asset("theme.less", options.theme)
-          asset.write!
-          debug("▸ created #{asset.logical_path}")
+          debug("▸ created #{asset.logical_path}") if asset.write!
         end
   
         task :yaml, theme: "!" do |args, options|
           asset = theme_asset("theme.yml", options.theme)
-          asset.write!
-          debug("▸ created #{asset.logical_path}")
+          debug("▸ created #{asset.logical_path}") if asset.write!
         end
   
         task :haml, theme: "!" do |args, options|
@@ -31,8 +28,7 @@ module MagLove
           end
           theme_glob("templates/*", options.theme).each do |file|
             asset = theme_asset(file, options.theme)
-            asset.write!
-            debug("▸ created #{asset.logical_path}")
+            debug("▸ created #{asset.logical_path}") if asset.write!
           end
         end
 
