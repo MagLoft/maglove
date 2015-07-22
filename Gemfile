@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in rubyrogue.gemspec
+gem "hamlet", path: "../hamlet"
+
 gemspec

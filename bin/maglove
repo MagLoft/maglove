@@ -5,6 +5,9 @@ require "maglove"
 
 Dotenv.load
 
+# Set up templates
+Hamlet.register_template(:tumblr, MagLove::Template::Tumblr)
+
 # Fix RbConfig warning
 Object.send :remove_const, :Config
 Config = RbConfig

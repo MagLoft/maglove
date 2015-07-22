@@ -5,15 +5,17 @@ module MagLove
       %q{!!! 5
 %html
   %head
+    %meta{ charset: "UTF-8" }
     %title= "#{theme} - #{template}"
-    %link{ :href => "/themes/#{theme}/theme.css", :media => "screen", :rel => "stylesheet" }
-    %link{ :href => "/fonts/fonts.css", :media => "screen", :rel => "stylesheet" }
-    %script{ :src => "/themes/#{theme}/theme.js", :type => "text/javascript" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %link{ href: "/themes/#{theme}/theme.css", media: "screen", rel: "stylesheet" }
+    %link{ href: "/fonts/fonts.css", media: "screen", rel: "stylesheet" }
+    %script{ src: "/themes/#{theme}/theme.js", type: "text/javascript" }
   %body
     = contents
     #inspector
       - templates.each do |template|
-        %a{:href => "/#{template}"}
+        %a{href: "/#{template}"}
           = template
 
 :css
