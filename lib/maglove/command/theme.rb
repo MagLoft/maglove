@@ -5,12 +5,18 @@ module MagLove
       
       def run
 
-        task :compile, theme: ENV["THEME"] do |args, options|
+        task :compile, theme: ENV["THEME"], sync: "NO", bucket: "localhost:3001" do |args, options|
           info("▸ compiling theme #{options.theme}")
           invoke_tasks(["core:validate", "core:clean", "compile:coffee", "compile:less", "compile:yaml", "compile:haml", "copy:base_images", "copy:images", "copy:thumbs", "compress:theme"], options)
+          
+          if options.sync == "YES"
+            error!("▸ SYNC error: please specify a bucket to use (cdn.magloft.com, test-cdn.magloft.com)") if options.bucket == "localhost:3001"
+            invoke_task("sync:cdn", options)
+          end
+          
         end
         
-        task :"compile-all", sync: "no" do |args, options|
+        task :"compile-all", sync: "NO" do |args, options|
           themes = Dir.chdir("src/themes") { Dir.glob("*") }
           themes.each do |theme|  
             options.theme = theme

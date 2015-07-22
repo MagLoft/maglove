@@ -20,12 +20,8 @@ module MagLove
           debug("▸ created #{asset.logical_path}") if asset.write!
         end
   
-        task :haml, theme: "!" do |args, options|
-          if options.production
-            Haml::Options.defaults[:asset_uri] = "http://cdn.magloft.com/themes/#{options.theme}"
-          else
-            Haml::Options.defaults[:asset_uri] = "http://localhost:3001/themes/#{options.theme}"
-          end
+        task :haml, theme: "!", bucket: "!" do |args, options|
+          Haml::Options.defaults[:asset_uri] = "http://#{options.bucket}/themes/#{options.theme}"
           theme_glob("templates/*", options.theme).each do |file|
             asset = theme_asset(file, options.theme)
             debug("▸ created #{asset.logical_path}") if asset.write!
