@@ -33,12 +33,10 @@ module MagLove
           }
           
           # render template
-          engine = Haml::Engine.new(theme_contents("templates/#{template}.haml", self.theme))
-          contents = engine.render(Object.new, variables)
+          contents = Hamlet.render(theme_contents("templates/#{template}.haml", self.theme), variables)
           
           # render editor view
-          engine = Haml::Engine.new(View.editor)
-          res.body = engine.render(Object.new, theme: self.theme, contents: contents, templates: templates, template: template)
+          res.body = Hamlet.render(View.editor, theme: self.theme, contents: contents, templates: templates, template: template)
         end
       end
     end

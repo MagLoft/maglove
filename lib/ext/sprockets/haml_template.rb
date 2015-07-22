@@ -7,7 +7,7 @@ module Sprockets
     end
 
     def evaluate(scope, locals, &block)
-      @output ||= Haml::Engine.new(data, {remove_whitespace: true}).render(self, {})
+      @output ||= Hamlet::Engine.new(data, {remove_whitespace: true}).render(self, {})
     end
 
     def allows_script?
