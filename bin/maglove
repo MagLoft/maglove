@@ -10,6 +10,8 @@ Hamlet.register_template(:tumblr, MagLove::Template::Tumblr)
 Tilt.mappings["haml"] = [MagLove::Tilt::HamlTemplate]
 Tilt.mappings["less"] = [MagLove::Tilt::LessTemplate]
 Tilt.mappings["yml"] = [MagLove::Tilt::YamlTemplate]
+Tilt.mappings["coffee"] = [MagLove::Tilt::CoffeeTemplate]
+Tilt.mappings["js"] = [MagLove::Tilt::JsTemplate]
 
 # Fix RbConfig warning
 Object.send :remove_const, :Config
