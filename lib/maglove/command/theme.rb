@@ -5,7 +5,7 @@ module MagLove
       
       def run
 
-        task :compile, theme: ENV["THEME"], sync: "NO", bucket: "localhost:3001" do |args, options|
+        task :compile, theme: ENV["THEME"], sync: "NO", bucket: "localhost:3002" do |args, options|
           info("▸ compiling theme #{options.theme}")
           invoke_tasks(["core:validate", "core:clean", "compile:coffee", "compile:less", "compile:yaml", "compile:haml", "copy:base_images", "copy:images", "copy:thumbs", "compress:theme"], options)
           

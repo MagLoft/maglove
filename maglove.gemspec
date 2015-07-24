@@ -20,7 +20,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "activesupport", "4.2.3"
   s.add_runtime_dependency "logging", "2.0.0"
   s.add_runtime_dependency "tilt", "1.4.1"
-  s.add_runtime_dependency "sprockets", "< 3.0.0"
   s.add_runtime_dependency "coffee-script", "2.4.1"
   s.add_runtime_dependency "minitar", "0.5.4"
   s.add_runtime_dependency "therubyracer", "0.12.2"

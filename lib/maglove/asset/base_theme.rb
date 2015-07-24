@@ -1,15 +1,11 @@
 module MagLove
   module Asset
     class BaseTheme < Theme
-      attr_accessor :version
+      attr_reader :version
   
-      def initialize(path, theme, version)
-        self.version = version
-        super(path, theme)
-      end
-    
-      def get_sprockets
-        base_sprockets(version)
+      def initialize(path, theme, version, locals={})
+        @version = version
+        super(path, theme, locals)
       end
     
       def absolute_path

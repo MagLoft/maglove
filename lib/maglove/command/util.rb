@@ -39,6 +39,13 @@ module MagLove
           end
         end
         
+        task :asset, theme: "!" do |args, options|
+          asset = theme_asset("templates/article-01.haml", options.theme)
+          asset.write!
+          binding.pry
+          puts "-- done"
+        end
+        
         task :test, theme: "!" do |args, options|
         
           # parse variables

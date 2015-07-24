@@ -21,7 +21,7 @@ module MagLove
         end
   
         task :haml, theme: "!", bucket: "!" do |args, options|
-          Haml::Options.defaults[:asset_uri] = "http://#{options.bucket}/themes/#{options.theme}"
+          Hamlet::Options.defaults[:asset_uri] = "http://#{options.bucket}"
           theme_glob("templates/*", options.theme).each do |file|
             asset = theme_asset(file, options.theme)
             debug("▸ created #{asset.logical_path}") if asset.write!
