@@ -16,6 +16,18 @@ module MagLove
           haml.paragraph_widget({margin_left: "2em", margin_right: "2em"}, chunk.text)
         when "p"
           haml.paragraph_widget({margin_left: "2em", margin_right: "2em"}, chunk.text)
+        when "ol", "ul"
+          haml.paragraph_widget({margin_left: "2em", margin_right: "2em"}) do
+            haml.haml_tag chunk.name, class: "user-list" do
+              chunk.children.each do |child|
+                haml.haml_tag :li do
+                  haml.haml_concat child.text
+                end
+              end
+            end
+          end
+        when "h1", "h2", "h3", "h4", "h5"
+          haml.heading_widget({type: chunk.name, margin_left: "2em", margin_right: "2em", margin_bottom: "1em"}, chunk.text)
         when "a"
           if chunk.css("img").length > 0
             haml.image_widget_link(href: chunk.attribute("href").to_s, source: chunk.css("img").first.attribute("src").to_s)
