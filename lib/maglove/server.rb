@@ -33,6 +33,7 @@ module MagLove
           }
           
           # render template
+          variables[:theme] = self.theme
           contents = Hamlet.render(theme_contents("templates/#{template}.haml", self.theme), variables)
           
           # render editor view
