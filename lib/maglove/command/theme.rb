@@ -16,7 +16,7 @@ module MagLove
           
         end
         
-        task :"compile-all", sync: "NO" do |args, options|
+        task :"compile-all", sync: "NO", bucket: "localhost:3002" do |args, options|
           themes = Dir.chdir("src/themes") { Dir.glob("*") }
           themes.each do |theme|  
             options.theme = theme

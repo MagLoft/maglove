@@ -9,7 +9,8 @@ module MagLove
       OUTPUT_MAPPING = {
         "haml" => "html",
         "less" => "css",
-        "coffee" => "js"
+        "coffee" => "js",
+        "yml" => "json"
       }
 
       def initialize(path, theme, locals={})
