@@ -1,12 +1,18 @@
 GIT
   remote: git@bitbucket.org:magloft/hamlet.git
-  revision: 9a1aefacf1a9fa983d9a01dcf2934bdf15dec81f
+  revision: a9e8a68daa4053d4e8f79d68a886da3c52f50548
   specs:
     hamlet (0.1.0)
       activesupport (= 4.2.3)
       bundler (= 1.10.5)
       haml (= 4.0.6)
       nokogiri (= 1.6.3.1)
+
+GIT
+  remote: git@github.com:joelvh/tilt-twig.git
+  revision: 28989c4343b3cc80db43f3bd83edca49ed7a2fdb
+  specs:
+    tilt-twig (0.0.1)
 
 PATH
   remote: .
@@ -121,6 +127,7 @@ DEPENDENCIES
   pry (= 0.10.1)
   rspec (= 3.3.0)
   rubocop (= 0.32.1)
+  tilt-twig!
 
 BUNDLED WITH
    1.10.5

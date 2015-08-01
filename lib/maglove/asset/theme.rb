@@ -8,6 +8,7 @@ module MagLove
 
       OUTPUT_MAPPING = {
         "haml" => "html",
+        "twig" => "html",
         "less" => "css",
         "coffee" => "js",
         "yml" => "json"

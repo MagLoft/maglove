@@ -17,6 +17,7 @@ require "zlib"
 require "archive/tar/minitar"
 
 require "maglove/version"
+require "maglove/tilt/twig_template"
 require "maglove/tilt/haml_template"
 require "maglove/tilt/less_template"
 require "maglove/tilt/coffee_template"

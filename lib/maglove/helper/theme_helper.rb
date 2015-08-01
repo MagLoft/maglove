@@ -37,7 +37,11 @@ module MagLove
       end
   
       def theme_contents(path, theme)
-        File.read(theme_path(path, theme))
+        if File.exists?(theme_path(path, theme))
+          File.read(theme_path(path, theme))
+        else
+          nil
+        end
       end
     
       def theme_dist_contents(path, theme)

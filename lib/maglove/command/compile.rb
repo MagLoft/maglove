@@ -20,10 +20,16 @@ module MagLove
           debug("▸ created #{asset.logical_path}") if asset.write!
         end
   
-        task :haml, theme: "!", bucket: "!" do |args, options|
+        task :templates, theme: "!", bucket: "!" do |args, options|
           Hamlet::Options.defaults[:asset_uri] = "http://#{options.bucket}"
-          theme_glob("templates/*", options.theme).each do |file|
-            asset = theme_asset(file, options.theme)
+          theme_glob("templates/*.{html,haml,twig}", options.theme).each do |file|
+            # check if yaml file exists
+            locals = {}
+            locals_contents = theme_contents(file.sub(/\.[^.]+\z/, ".yml"), options.theme)
+            if locals_contents
+              locals = YAML.load(locals_contents)
+            end
+            asset = theme_asset(file, options.theme, locals)
             debug("▸ created #{asset.logical_path}") if asset.write!
           end
         end
