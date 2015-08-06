@@ -1,0 +1,41 @@
+-# ROOT DROP CONTAINER
+- drop_container
+
+-# ROOT CONTAINER
+- container_widget animate: "scale-background", min_height: "calc(100vh - 92px)", parallax_effect: "fixed", image_source: variable(:background_url, asset("images/sample/skyscraper.jpg")), image_size: "cover", background_color: "overlay", image_position: "center center" do
+  
+  -# TOP PAGE CONTAINER
+  - container_widget min_height: "calc(100vh - 92px)" do
+  
+    -# FIXED CONTAINER
+    - container_widget animate: "fade-in-down scroll-animate", style: "fixed", padding_top: "30vh", padding_left: "10vw", padding_right: "10vw" do
+  
+      -# MAIN HEADING
+      - heading_widget align: "left", style: "feature" do
+        - style :bold, color: "#FFFFFF" do
+          = variable(:title, "Article Title")
+    
+      - horizontal_rule_widget style: "flourish-01", color: "light"    
+    
+  -# CENTER CONTAINER
+  - container_widget style: "thin", background_color: "custom", bg_color: "rgba(255, 255, 255, 0.95)", padding_top: "20px", animate: "fade-in-up" do
+  
+    - container_widget padding_left: "20px", padding_right: "20px" do
+  
+      - button_widget style: "success", href: "#scroll-next" do
+        - style :bold, color: "#FFFFFF" do
+          BEGIN
+
+    -# HEADER CONTAINER
+    - container_widget parallax_effect: "up", image_source: asset("images/base/bg/stripes.jpg"), margin_left: "20px", margin_right: "20px", margin_top: "20px", padding_top: "2em", padding_bottom: "2em", padding_left: "2em", padding_right: "2em" do
+      - heading_widget type: "h2", align: "center", style: "feature" do
+        - style :bold, color: "#FFFFFF" do
+          = variable(:title, "WHY I DESIGN?")
+          
+    -# BODY CONTAINER
+    - container_widget padding_top: "2em", padding_left: "0em", padding_right: "0em" do
+      - parse_html(:html, :tumblr)
+
+      - button_widget style: "success", href: "#scroll-top" do
+        - style :bold, color: "#FFFFFF" do
+          BACK

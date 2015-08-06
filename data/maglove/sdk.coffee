@@ -19,4 +19,4 @@ $ ->
         console.log "click widget"
       
 
-  sdk = new MagLoveSdk()
+  # sdk = new MagLoveSdk()

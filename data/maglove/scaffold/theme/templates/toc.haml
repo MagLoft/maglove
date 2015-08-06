@@ -1,0 +1,34 @@
+-# ROOT DROP CONTAINER
+- drop_container
+
+-# ROOT CONTAINER
+- container_widget min_height: "100vh", parallax_effect: "fixed", image_source: variable(:background_url, asset("images/bg/toc.jpg")), image_size: "cover", image_position: "top center", padding_left: "20px", padding_right: "20px" do
+  
+  -# FIXED CONTAINER
+  - container_widget animate: "fade-in-up scroll-animate", padding_top: "2em", padding_left: "20px", padding_right: "20px" do
+
+    -# MAIN HEADING
+    - heading_widget align: "center", style: "feature" do
+      - style :bold, color: "#FFFFFF" do
+        IN THIS EPISODE
+  
+    - horizontal_rule_widget style: "sign", color: "light", max_height: "4vh"
+    
+  -# CENTER CONTAINER
+  - container_widget padding_top: "20px", margin_bottom: "20px" do
+  
+    - container_widget padding_left: "20px", padding_right: "20px" do
+  
+      -# SECONDARY HEADING
+      - heading_widget type: "h2", align: "center", style: "feature", margin_bottom: "2em" do
+        - style :bold, color: "#FFFFFF" do
+          The last month in review
+
+      
+      - columns_widget_compose :posts, columns: "4x4x4" do |row, post|
+
+        - column row do        
+          - container_widget margin_bottom: "20px", background_image: post[:image_url], image_size: "cover" do
+            - button_widget style: "shade", size: "md", padding_top: "20%", padding_bottom: "20%" do
+              - style :bold, color: "#FFFFFF" do
+                = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.".split(" ")[0..Random.rand(12)].join(" ")

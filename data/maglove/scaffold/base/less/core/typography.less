@@ -1,0 +1,74 @@
+body { 
+    background-color: @background-color-base;
+    font-family: @font-family-base;
+    font-size: @font-size-base;
+    font-weight: @font-weight-base;
+    color: @font-color-base;
+}
+
+h1, h2, h3, h4, h5 {
+   word-break: break-word;
+}
+
+// Tablet Landscape (xl)
+@media (min-width : 1280px) {
+    h1 { font-size: floor(@font-size-base * @font-size-h1-ratio * @font-size-xl-ratio); line-height: floor(@font-size-base * @font-size-h1-ratio * @font-size-xl-ratio); }
+    h2 { font-size: floor(@font-size-base * @font-size-h2-ratio * @font-size-xl-ratio); line-height: floor(@font-size-base * @font-size-h2-ratio * @font-size-xl-ratio); }
+    h3 { font-size: floor(@font-size-base * @font-size-h3-ratio * @font-size-xl-ratio); line-height: floor(@font-size-base * @font-size-h3-ratio * @font-size-xl-ratio); }
+    h4 { font-size: floor(@font-size-base * @font-size-h4-ratio * @font-size-xl-ratio); line-height: floor(@font-size-base * @font-size-h4-ratio * @font-size-xl-ratio); }
+    h5 { font-size: floor(@font-size-base * @font-size-h5-ratio * @font-size-xl-ratio); line-height: floor(@font-size-base * @font-size-h5-ratio * @font-size-xl-ratio); }
+}
+
+// Tablet Landscape (lg)
+@media (min-width: 1000px) and (max-width: 1279px) {
+    h1 { font-size: floor(@font-size-base * @font-size-h1-ratio * @font-size-lg-ratio); line-height: floor(@font-size-base * @font-size-h1-ratio * @font-size-lg-ratio); }
+    h2 { font-size: floor(@font-size-base * @font-size-h2-ratio * @font-size-lg-ratio); line-height: floor(@font-size-base * @font-size-h2-ratio * @font-size-lg-ratio); }
+    h3 { font-size: floor(@font-size-base * @font-size-h3-ratio * @font-size-lg-ratio); line-height: floor(@font-size-base * @font-size-h3-ratio * @font-size-lg-ratio); }
+    h4 { font-size: floor(@font-size-base * @font-size-h4-ratio * @font-size-lg-ratio); line-height: floor(@font-size-base * @font-size-h4-ratio * @font-size-lg-ratio); }
+    h5 { font-size: floor(@font-size-base * @font-size-h5-ratio * @font-size-lg-ratio); line-height: floor(@font-size-base * @font-size-h5-ratio * @font-size-lg-ratio); }
+}
+
+// Tablet Portrait (md)
+@media (min-width: 768px) and (max-width: 999px) {
+    h1 { font-size: floor(@font-size-base * @font-size-h1-ratio * @font-size-md-ratio); line-height: floor(@font-size-base * @font-size-h1-ratio * @font-size-md-ratio); }
+    h2 { font-size: floor(@font-size-base * @font-size-h2-ratio * @font-size-md-ratio); line-height: floor(@font-size-base * @font-size-h2-ratio * @font-size-md-ratio); }
+    h3 { font-size: floor(@font-size-base * @font-size-h3-ratio * @font-size-md-ratio); line-height: floor(@font-size-base * @font-size-h3-ratio * @font-size-md-ratio); }
+    h4 { font-size: floor(@font-size-base * @font-size-h4-ratio * @font-size-md-ratio); line-height: floor(@font-size-base * @font-size-h4-ratio * @font-size-md-ratio); }
+    h5 { font-size: floor(@font-size-base * @font-size-h5-ratio * @font-size-md-ratio); line-height: floor(@font-size-base * @font-size-h5-ratio * @font-size-md-ratio); }
+}
+
+// Phone Landscape (sm)
+@media (min-width: 480px) and (max-width: 767px) {
+    h1 { font-size: floor(@font-size-base * @font-size-h1-ratio * @font-size-sm-ratio); line-height: floor(@font-size-base * @font-size-h1-ratio * @font-size-sm-ratio); }
+    h2 { font-size: floor(@font-size-base * @font-size-h2-ratio * @font-size-sm-ratio); line-height: floor(@font-size-base * @font-size-h2-ratio * @font-size-sm-ratio); }
+    h3 { font-size: floor(@font-size-base * @font-size-h3-ratio * @font-size-sm-ratio); line-height: floor(@font-size-base * @font-size-h3-ratio * @font-size-sm-ratio); }
+    h4 { font-size: floor(@font-size-base * @font-size-h4-ratio * @font-size-sm-ratio); line-height: floor(@font-size-base * @font-size-h4-ratio * @font-size-sm-ratio); }
+    h5 { font-size: floor(@font-size-base * @font-size-h5-ratio * @font-size-sm-ratio); line-height: floor(@font-size-base * @font-size-h5-ratio * @font-size-sm-ratio); }
+}
+
+// Phone Portrait (xs)
+@media (max-width: 479px) {
+    h1 { font-size: floor(@font-size-base * @font-size-h1-ratio * @font-size-xs-ratio); line-height: floor(@font-size-base * @font-size-h1-ratio * @font-size-xs-ratio); }
+    h2 { font-size: floor(@font-size-base * @font-size-h2-ratio * @font-size-xs-ratio); line-height: floor(@font-size-base * @font-size-h2-ratio * @font-size-xs-ratio); }
+    h3 { font-size: floor(@font-size-base * @font-size-h3-ratio * @font-size-xs-ratio); line-height: floor(@font-size-base * @font-size-h3-ratio * @font-size-xs-ratio); }
+    h4 { font-size: floor(@font-size-base * @font-size-h4-ratio * @font-size-xs-ratio); line-height: floor(@font-size-base * @font-size-h4-ratio * @font-size-xs-ratio); }
+    h5 { font-size: floor(@font-size-base * @font-size-h5-ratio * @font-size-xs-ratio); line-height: floor(@font-size-base * @font-size-h5-ratio * @font-size-xs-ratio); }
+}
+
+// Legacy font sizes
+
+.size-sm {
+    font-size: @font-size-base * 80 / 100;
+}
+
+.size-md {
+    font-size: @font-size-base;
+}
+
+.size-lg {
+    font-size: @font-size-base * 125 / 100;
+}
+
+.size-xl {
+    font-size: @font-size-base * 150 / 100;
+}

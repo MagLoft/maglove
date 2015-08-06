@@ -1,0 +1,76 @@
+// ==========================================================================
+// Base – Buttons
+// ==========================================================================
+
+// Custom Buttons
+.btn {
+  background-color: #f3f3f3;
+  line-height: normal;
+  padding: .5em 1em;
+  text-decoration: none;
+  color: #363636;
+  display: inline-block;
+  -webkit-transition: all 0.3s;
+  -moz-transition: all 0.3s;
+  transition: all 0.3s;
+  &:hover { background: #f9f9f9; }
+  &:active { background: #fff; }
+}
+
+.btn-fit {
+  display: block;
+  text-align: center;
+}
+
+.btn-success {
+  background-color: #8CD1A8;
+  color: #FFFFFF;
+  &:hover { background: #70B58C; }
+}
+
+.btn-shade {
+  min-height: 260px;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: #FFFFFF;
+  border: 4px solid #FFFFFF;
+  box-shadow: 0px 2px 6px #171717;
+  &:hover { background: rgba(0, 0, 0, 0.75); }
+}
+
+.btn-xl {
+  font-size: 200%;
+}
+
+.btn-lg {
+  font-size: 150%;
+}
+
+.btn-md {
+  font-size: 100%;
+}
+
+.btn-sm {
+  font-size: 80%;
+}
+
+.btn-xs {
+  font-size: 50%;
+}
+
+.btn-primary {
+  // Add your styles here
+}
+.btn-secondary {
+  // Add your styles here
+}
+
+// Button Styled as Link
+.btn-link {
+  color: @base-link-color;
+  text-decoration: underline;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  &:hover { text-decoration: none; }
+  &:active { outline: 0; }
+}

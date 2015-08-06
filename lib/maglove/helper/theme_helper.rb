@@ -43,6 +43,10 @@ module MagLove
           nil
         end
       end
+      
+      def theme_write_contents(path, contents, theme)
+        File.open(theme_path(path, theme), "w") {|f| f.write(contents) }
+      end
     
       def theme_dist_contents(path, theme)
         File.read(theme_dist_path(path, theme))

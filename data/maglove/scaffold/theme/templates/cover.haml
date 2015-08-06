@@ -1,0 +1,27 @@
+-# ROOT DROP CONTAINER
+- drop_container
+
+-# ROOT CONTAINER
+- container_widget min_height: "100vh", parallax_effect: "fixed", image_source: asset("images/bg/pastel-blue-01.jpg"), image_size: "cover", background_color: "overlay", image_position: "top center", padding_top: "20vh", padding_left: "20px", padding_right: "20px" do
+  
+  -# FIXED CONTAINER
+  - container_widget animate: "fade-in-up scroll-animate", padding_top: "2em", padding_left: "20px", padding_right: "20px" do
+
+    - image_widget source: asset("images/logo.png"), style: "default"
+
+    -# MAIN HEADING
+    - heading_widget align: "center", style: "feature", margin_top: "20px" do
+      - style :bold, color: "#FFFFFF" do
+        = "MagLoft Magazines"
+
+    -# SECONDARY HEADING
+    - heading_widget type: "h4", align: "center", style: "feature" do
+      - style :bold, color: "#FFFFFF" do
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
+  
+    - horizontal_rule_widget style: "sign", color: "light", max_height: "4vh"
+    
+    -# SECONDARY HEADING
+    - heading_widget type: "h2", align: "center", style: "feature" do
+      - style :bold, color: "#FFFFFF" do
+        = "#{Date::MONTHNAMES[Date.today.month]} #{Date.today.year}"
