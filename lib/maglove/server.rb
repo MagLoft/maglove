@@ -16,7 +16,7 @@ module MagLove
         AccessLog: []
       )
       
-      # prepare controller actions
+      # template view actions
       templates = theme_config(:templates, self.theme)
       templates.each do |template|
         mount("/#{template}") do |req, res|
@@ -38,8 +38,23 @@ module MagLove
           end
           
           # render editor view
-          res.body = Hamlet.render(View.editor, theme: self.theme, contents: contents, templates: templates, template: template)
+          haml_contents = File.read(File.join(Gem.datadir("maglove"), "sdk.haml"))
+          res.body = Hamlet.render(haml_contents, theme: self.theme, contents: contents, templates: templates, template: template)
         end
+      end
+      
+      mount("/sdk.js") do |req, res|
+        js_contents = File.read(File.join(Gem.datadir("maglove"), "vendor.js"))
+        coffee_contents = File.read(File.join(Gem.datadir("maglove"), "sdk.coffee"))
+        res.content_type = "text/javascript"
+        res.body = [js_contents, CoffeeScript.compile(coffee_contents, bare: true)].join("\n")
+      end
+
+      mount("/sdk.css") do |req, res|
+        less_contents = File.read(File.join(Gem.datadir("maglove"), "sdk.less"))
+        parser  = ::Less::Parser.new(relativeUrls: false)
+        res.content_type = "text/css"
+        res.body = parser.parse(less_contents).to_css
       end
     end
     
