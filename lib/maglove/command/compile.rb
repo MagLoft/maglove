@@ -21,7 +21,7 @@ module MagLove
         end
   
         task :templates, theme: "!", bucket: "!" do |args, options|
-          Hamlet::Options.defaults[:asset_uri] = "http://#{options.bucket}"
+          Hamloft::Options.defaults[:asset_uri] = "http://#{options.bucket}"
           theme_glob("templates/*.{html,haml,twig}", options.theme).each do |file|
             # check if yaml file exists
             locals = {}

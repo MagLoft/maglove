@@ -5,8 +5,8 @@ require "maglove"
 
 Dotenv.load
 
-# Set up Hamlet
-Hamlet.register_template(:tumblr, MagLove::Template::Tumblr)
+# Set up Hamloft
+Hamloft.register_template(:tumblr, MagLove::Template::Tumblr)
 Tilt.mappings["haml"] = [MagLove::Tilt::HamlTemplate]
 Tilt.mappings["less"] = [MagLove::Tilt::LessTemplate]
 Tilt.mappings["yml"] = [MagLove::Tilt::YamlTemplate]

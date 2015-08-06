@@ -1,6 +1,6 @@
-require "pry"
+# require "pry"
 require "tilt"
-require "hamlet"
+require "hamloft"
 
 require "rubygems"
 require "bundler"

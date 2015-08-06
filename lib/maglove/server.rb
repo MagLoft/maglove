@@ -39,7 +39,7 @@ module MagLove
           
           # render editor view
           haml_contents = File.read(File.join(Gem.datadir("maglove"), "sdk.haml"))
-          res.body = Hamlet.render(haml_contents, theme: self.theme, contents: contents, templates: templates, template: template)
+          res.body = Hamloft.render(haml_contents, theme: self.theme, contents: contents, templates: templates, template: template)
         end
       end
       

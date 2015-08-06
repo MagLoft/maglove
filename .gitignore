@@ -1,4 +1,5 @@
 /.env
+/data/maglove/twigster.phar
 /dist/*
 .DS_Store
 /maglove-*.gem

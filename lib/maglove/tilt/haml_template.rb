@@ -8,7 +8,7 @@ module MagLove
       end
 
       def evaluate(scope, locals, &block)
-        @output ||= Hamlet::Engine.new(data, {remove_whitespace: true}).render(scope, locals)
+        @output ||= Hamloft::Engine.new(data, {remove_whitespace: true}).render(scope, locals)
       end
 
       def allows_script?

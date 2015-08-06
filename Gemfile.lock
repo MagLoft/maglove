@@ -1,23 +1,7 @@
-GIT
-  remote: git@bitbucket.org:magloft/hamlet.git
-  revision: a9e8a68daa4053d4e8f79d68a886da3c52f50548
-  specs:
-    hamlet (0.1.0)
-      activesupport (= 4.2.3)
-      bundler (= 1.10.5)
-      haml (= 4.0.6)
-      nokogiri (= 1.6.3.1)
-
-GIT
-  remote: git@github.com:joelvh/tilt-twig.git
-  revision: 28989c4343b3cc80db43f3bd83edca49ed7a2fdb
-  specs:
-    tilt-twig (0.0.1)
-
 PATH
   remote: .
   specs:
-    maglove (0.1.0)
+    maglove (0.2.1)
       activesupport (= 4.2.3)
       bundler (= 1.10.5)
       coffee-script (= 2.4.1)
@@ -25,6 +9,7 @@ PATH
       dotenv (= 2.0.2)
       filewatcher (= 0.5.1)
       haml (= 4.0.6)
+      hamloft (= 0.1.0)
       less (= 2.6.0)
       logging (= 2.0.0)
       minitar (= 0.5.4)
@@ -60,7 +45,12 @@ GEM
       trollop (~> 2.0)
     haml (4.0.6)
       tilt
-    highline (1.7.2)
+    hamloft (0.1.0)
+      activesupport (= 4.2.3)
+      bundler (= 1.10.5)
+      haml (= 4.0.6)
+      nokogiri (= 1.6.3.1)
+    highline (1.7.3)
     i18n (0.7.0)
     json (1.8.3)
     less (2.6.0)
@@ -122,12 +112,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  hamlet!
   maglove!
   pry (= 0.10.1)
   rspec (= 3.3.0)
   rubocop (= 0.32.1)
-  tilt-twig!
 
 BUNDLED WITH
    1.10.5

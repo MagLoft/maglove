@@ -1,6 +1,6 @@
 module MagLove
   module Template
-    class Tumblr < Hamlet::Template
+    class Tumblr < Hamloft::Template
       
       def chunks
         self.doc.children

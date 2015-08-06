@@ -16,6 +16,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "bundler", "1.10.5"
   s.add_runtime_dependency "dotenv", "2.0.2"
   s.add_runtime_dependency 'haml', "4.0.6"
+  s.add_runtime_dependency 'hamloft', "0.1.0"
   s.add_runtime_dependency "rubyzip", "1.1.7"
   s.add_runtime_dependency "activesupport", "4.2.3"
   s.add_runtime_dependency "logging", "2.0.0"
