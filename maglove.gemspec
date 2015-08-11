@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "MagLove - MagLoft Theme Toolkit."
   s.description = "This gem contains development and built tools for creating MagLoft themes."
   s.required_rubygems_version = '>= 2.4.7'
-  s.add_runtime_dependency "bundler", "1.10.5"
+  s.add_runtime_dependency "bundler", "~> 1.10.5"
   s.add_runtime_dependency "dotenv", "2.0.2"
   s.add_runtime_dependency 'haml', "4.0.6"
   s.add_runtime_dependency 'hamloft', "0.1.0"
