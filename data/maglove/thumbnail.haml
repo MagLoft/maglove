@@ -1,0 +1,11 @@
+!!! 5
+%html
+  %head
+    %meta{ charset: "UTF-8" }
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }    
+    %base{ href: "http://localhost:3000/" }
+    %link{ href: "http://localhost:3000/themes/#{theme}/theme.css", media: "screen", rel: "stylesheet" }
+    %link{ href: "http://localhost:3000/fonts/fonts.css", media: "screen", rel: "stylesheet" }
+    %script{ src: "http://localhost:3000/themes/#{theme}/theme.js", type: "text/javascript" }
+  %body
+    = contents
