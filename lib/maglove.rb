@@ -1,4 +1,3 @@
-# require "pry"
 require "tilt"
 require "hamloft"
 
@@ -13,6 +12,7 @@ require "coffee_script"
 require "therubyracer"
 require "less"
 require "commander"
+require "image_optim"
 require "zlib"
 require "archive/tar/minitar"
 

@@ -60,6 +60,17 @@ module MagLove
             html_base64 = Base64.strict_encode64(html)
             contents = script.run(html_base64, "png", "480", "640", "1")
             theme_write_contents("thumbs/#{template}.png", contents, options.theme)
+            
+            # Optimize thumbnail image
+            info("▸ Optimize image")
+            begin
+              image_optim = ImageOptim.new(pngout: false, svgo: false)
+              image_optim.optimize_image!(theme_path("thumbs/#{template}.png", options.theme))
+            rescue Exception => e
+              error(e.message)
+              error!("Missing image optimization binaries. Install via: gem install image_optim_pack")
+            end
+            
           end
           
         end
