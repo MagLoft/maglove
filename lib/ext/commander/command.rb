@@ -5,16 +5,21 @@ module Commander
     class Options
       
       def __merge(params)
-        options = Options.new
-        options.__hash__.merge!(__hash__)
-        options.__hash__.merge!(params)
-        options
+        new_options = options.__clone
+        new_options.__hash__.merge!(params)
+        new_options
+      end
+      
+      def __clone
+        new_options = Options.new
+        new_options.__hash__.merge!(__hash__)
+        new_options
       end
       
     end
 
     def invoke(args=[], options=nil)
-      options ||= Options.new
+      options = options ? options.__clone : Options.new
       self.block.call(args, options)
     end
     
