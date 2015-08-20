@@ -69,7 +69,7 @@ module MagLove
           debug("▸ all font styles created")
     
           if options.sync == "YES"
-            system "gsutil -m rsync -d -r fonts gs://#{options.bucket}/fonts"
+            system "gsutil -m rsync -d -r dist/fonts gs://#{options.bucket}/fonts"
             debug("▸ all fonts synchronized with bucket '#{options.bucket}'")
           end
         end
