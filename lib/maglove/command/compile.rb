@@ -27,7 +27,7 @@ module MagLove
             locals = {}
             locals_contents = theme_contents(file.sub(/\.[^.]+\z/, ".yml"), options.theme)
             if locals_contents
-              locals = YAML.load(locals_contents)
+              locals = YAML.load(locals_contents).with_indifferent_access
             end
             asset = theme_asset(file, options.theme, locals)
             debug("▸ created #{asset.logical_path}") if asset.write!
