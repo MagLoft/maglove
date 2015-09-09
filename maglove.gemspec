@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Tobias Strebitzer"]
   s.email       = ["tobias.strebitzer@magloft.com"]
-  s.homepage    = "http://www.magloft.com"
+  s.homepage    = "https://github.com/MagLoft/maglove"
   s.summary     = "MagLove - MagLoft Theme Toolkit."
   s.description = "This gem contains development and built tools for creating MagLoft themes."
   s.required_rubygems_version = '>= 2.4.7'
