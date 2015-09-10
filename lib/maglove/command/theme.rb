@@ -13,7 +13,50 @@ module MagLove
             error!("▸ SYNC error: please specify a bucket to use (cdn.magloft.com, test-cdn.magloft.com)") if options.bucket == "localhost:3001"
             invoke_task("sync:cdn", options)
           end
+        end
+        
+        task :deploy, theme: ENV["THEME"], out: ".", sync: "NO", bucket: "localhost:3002" do |args, options|
           
+          # Compile Theme
+          invoke_task("theme:compile", options)
+          
+          # Prepare Deployment Directory
+          output_path = File.expand_path(options.out)
+          error!("Directory '#{output_path}' does not exist!") if !File.directory?(output_path)
+          target_path = File.join(output_path, options.theme)
+          FileUtils.rm_r(target_path) if File.directory?(target_path)
+          FileUtils.mkdir_p(File.join(target_path, "themes"))
+          
+          # Copy Assets
+          FileUtils.cp_r(theme_dist_path(nil, options.theme), File.join(target_path, "themes/#{options.theme}"))
+          FileUtils.cp_r(File.join("dist", "fonts"), File.join(target_path, "fonts"))
+          
+          # Process Templates
+          templates = theme_config(:templates, options.theme)
+          templates.each do |template|
+            debug "▸ processing template #{template}"
+            
+            # Render template
+            variables_yaml = theme_contents("templates/#{template}.yml", options.theme)
+            variables = variables_yaml ? YAML.load(variables_yaml).with_indifferent_access : {}
+            variables[:theme] = options.theme
+            template_file = theme_glob("templates/#{template}.{html,twig,haml}", options.theme).first
+            if !template_file.nil?
+              asset = MagLove::Asset::Theme.new(template_file, options.theme, variables)
+              contents = asset.contents
+            else
+              contents = "<p style='text-align: center; margin-top: 12px;'>ERROR: Template '#{template}' not found!</p>"
+            end
+            
+            # Render Static Dump
+            haml_contents = File.read(File.join(Gem.datadir("maglove"), "dump.haml"))
+            html_contents = Hamloft.render(haml_contents, theme: options.theme, contents: contents, templates: templates, template: template)            
+            
+            # Write to file
+            File.open(File.join(target_path, "#{template}.html"), "w") {|f| f.write(html_contents) }
+          end
+
+
         end
         
         task :"compile-all", sync: "NO", bucket: "localhost:3002" do |args, options|
