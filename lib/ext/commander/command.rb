@@ -5,7 +5,7 @@ module Commander
     class Options
       
       def __merge(params)
-        new_options = options.__clone
+        new_options = self.__clone
         new_options.__hash__.merge!(params)
         new_options
       end

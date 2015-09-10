@@ -79,7 +79,11 @@ module MagLove
       def watch_config(config, options)
         config.each do |task, pattern|
           watch(pattern) do |filename, event|
-            invoke_task(task, options.__merge(pattern: filename))
+            begin
+              invoke_task(task, options.__merge(pattern: filename))
+            rescue Exception => e
+              error(e.message)
+            end
           end
         end
       end
