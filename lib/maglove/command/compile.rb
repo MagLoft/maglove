@@ -20,7 +20,7 @@ module MagLove
           debug("▸ created #{asset.logical_path}") if asset.write!
         end
   
-        task :templates, theme: "!", bucket: "!" do |args, options|
+        task :templates, theme: "!", bucket: "localhost:3002" do |args, options|
           Hamloft::Options.defaults[:asset_uri] = "http://#{options.bucket}"
           theme_glob("templates/*.{html,haml,twig}", options.theme).each do |file|
             # check if yaml file exists
