@@ -14,6 +14,7 @@ require "less"
 require "commander"
 require "image_optim"
 require "zlib"
+require 'zip'
 require "archive/tar/minitar"
 
 require "maglove/version"
@@ -43,4 +44,5 @@ require "maglove/application"
 require "maglove/asset/theme"
 require "maglove/asset/base_theme"
 require "maglove/server"
+require "maglove/hpub/server"
 require "maglove/template/tumblr"

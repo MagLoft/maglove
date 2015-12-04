@@ -45,23 +45,27 @@ module MagLove
       end
 
       def write!
+        write_to!(output_path)
+      end
+      
+      def write_to!(path)
         return false if not valid?
-        FileUtils.mkdir_p(File.dirname(output_path))
+        FileUtils.mkdir_p(File.dirname(path))
         
-        File.open("#{output_path}+", 'wb') do |f|
+        File.open("#{path}+", 'wb') do |f|
           f.write @contents
         end
         
         # Atomic write
-        FileUtils.mv("#{output_path}+", output_path)
+        FileUtils.mv("#{path}+", path)
 
         # Set mtime correctly
-        File.utime(mtime, mtime, output_path)
+        File.utime(mtime, mtime, path)
 
         true
       ensure
         # Ensure tmp file gets cleaned up
-        FileUtils.rm("#{output_path}+") if File.exist?("#{output_path}+")
+        FileUtils.rm("#{path}+") if File.exist?("#{path}+")
       end
   
       def absolute_path

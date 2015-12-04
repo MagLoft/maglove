@@ -1,0 +1,12 @@
+!!!
+%html
+    %head
+        %title= template
+        %meta{'charset' => 'utf-8'}/
+        %meta{'name' => 'viewport', 'content' => 'width=device-width, initial-scale=1.0'}/
+        %meta{'pageid' => template}/
+        %link{'rel' => 'stylesheet', 'href' => "./themes/#{theme}/theme.css"}/
+        %link{'rel' => 'stylesheet', 'href' => "./fonts/fonts.css"}/
+        %script{'type' => 'text/javascript', 'src' => "./themes/#{theme}/theme.js"}
+    %body
+        = contents

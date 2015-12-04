@@ -1,0 +1,31 @@
+!!!
+%html
+    %head
+        %title= "#{name} - Index"
+        %meta{'charset' => 'utf-8'}/
+        %meta{'name' => 'viewport', 'content' => 'width=device-width, height=208, initial-scale=1.0, maximum-scale=1.0, user-scalable=no'}/
+        %link{'rel' => 'stylesheet', 'href' => 'stylesheets/index.css'}/
+    %body{'style' => "width: #{(174*templates.count)+16}px;"}
+        #index
+            .navigation
+                %ol
+                    - templates.each_with_index do |template, index|
+                        %li
+                            %a{'href' => "#{template}.html"}
+                                %img{'src' => "thumbs/#{template}.png"}
+                                %h7= template
+                                %small= "Page #{index+1}"
+        :javascript
+            var activateItem = function(event) {
+              if(event.target.nodeName === "IMG") {
+                var listItems = document.body.querySelectorAll(".navigation li");
+                for(var i=0; i<listItems.length; i++) {
+                  listItems[i].classList.toggle("active", false);
+                }        
+                event.target.parentNode.parentNode.classList.toggle("active", true);
+              }
+            };
+            var initialListItems = document.body.querySelectorAll(".navigation li");
+            for(var i=0; i<initialListItems.length; i++) {
+              initialListItems[i].addEventListener("click", activateItem, false);
+            }
