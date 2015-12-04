@@ -30,7 +30,6 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "filewatcher", "~> 0.5"
   s.add_runtime_dependency "image_optim", "~> 0.21"
   s.add_runtime_dependency "image_optim_pack", "~> 0.2"
-  s.add_runtime_dependency "rubyzip", "~> 1.1.7"
   s.add_development_dependency "rspec", "~> 3.3"
   s.add_development_dependency "pry", "~> 0.10"
   s.add_development_dependency "rubocop", "~> 0.32"

@@ -16,7 +16,6 @@ PATH
       logging (~> 2.0)
       minitar (~> 0.5)
       rubyzip (~> 1.1)
-      rubyzip (~> 1.1.7)
       therubyracer (~> 0.12)
       tilt (~> 1.4)
       webrick (~> 1.3)
