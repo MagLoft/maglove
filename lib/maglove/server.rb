@@ -56,6 +56,9 @@ module MagLove
         res.content_type = "text/css"
         res.body = parser.parse(less_contents).to_css
       end
+      
+      self.webrick.mount "/issue", Hpub::IssueServlet
+      self.webrick.mount "/manifest.json", Hpub::ManifestServlet
     end
     
     def mount_template(path, view, options={})
