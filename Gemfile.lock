@@ -49,7 +49,7 @@ GEM
     fspath (2.1.1)
     haml (4.0.7)
       tilt
-    hamloft (0.1.4)
+    hamloft (0.1.5)
       activesupport (~> 4.2)
       haml (~> 4.0)
       nokogiri (~> 1.6)
@@ -79,7 +79,7 @@ GEM
     minitar (0.5.4)
     minitest (5.8.3)
     multi_json (1.11.2)
-    nokogiri (1.6.7)
+    nokogiri (1.6.7.1)
       mini_portile2 (~> 2.0.0.rc2)
     parser (2.2.2.6)
       ast (>= 1.1, < 3.0)
