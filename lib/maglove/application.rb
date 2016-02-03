@@ -15,8 +15,22 @@ module MagLove
         verbosity = "info" if !["info", "debug", "warn", "error"].include?(verbosity.to_s)
         logger.level = verbosity.to_sym
       end
+      widgets_path = "widgets"
+      global_option '--widgets-path PATH', 'Specify path to custom widgets' do |path|
+        error!("▸ Invalid widgets path: #{path}") if !File.directory?(path)
+        widgets_path = path
+      end
       global_option '--production'
       default_command :help
+      
+      # Register Widgets
+      if File.directory?(widgets_path)
+        Dir["#{widgets_path}/**/*.rb"].each do |widget_path|
+          require "./#{widget_path}"
+          klass_name = widget_path.gsub(/\.rb$/, "").camelcase
+          Hamloft.register_widget(klass_name.constantize)
+        end
+      end
       
       logger.level = ENV["LOG_LEVEL"].to_sym if ENV["LOG_LEVEL"]
       
