@@ -1,4 +1,6 @@
 $ ->
+  ThemeApi.init({deviceId: 'AAAAAAAA-BBBB-CCCC-DDDD-EEEEEEEEEEEE', appId: 'com.magloft.maglove', apiHost: 'www.magloft.com'})
+  
   class MagLoveSdk
   
     constructor: (config={})->
