@@ -7,6 +7,7 @@ module MagLove
       self.theme = theme
       self.port = port
       self.root = "dist/"
+      @widget_stamps = {}
       
       # create server
       self.webrick = WEBrick::HTTPServer.new(
@@ -16,10 +17,25 @@ module MagLove
         AccessLog: []
       )
       
+      # create widget hash maps
+      Dir["widgets/*.rb"].each do |file|
+        @widget_stamps[file] = File.mtime(file).to_i
+      end
+      
       # template view actions
       templates = theme_config(:templates, self.theme)
       templates.each do |template|
         mount("/#{template}") do |req, res|
+          
+          Dir["widgets/*.rb"].each do |file|
+            stamp = File.mtime(file).to_i
+            if @widget_stamps[file] and @widget_stamps[file] < stamp
+              @widget_stamps[file] = stamp
+              debug("▸ reloading widget: #{file}")
+              load(file)
+            end
+          end
+          
           debug("▸ rendering template: #{template}")
           
           # Prepare variables
