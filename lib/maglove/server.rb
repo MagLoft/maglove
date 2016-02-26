@@ -38,7 +38,12 @@ module MagLove
           end
           
           # render editor view
-          haml_contents = File.read(File.join(Gem.datadir("maglove"), "sdk.haml"))
+          if File.exists?(theme_path("theme.haml", self.theme))
+            layout_path = theme_path("theme.haml", self.theme)
+          else
+            layout_path = File.join(Gem.datadir("maglove"), "sdk.haml")
+          end
+          haml_contents = File.read(layout_path)
           res.body = Hamloft.render(haml_contents, theme: self.theme, contents: contents, templates: templates, template: template)
         end
       end
