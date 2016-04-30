@@ -23,7 +23,7 @@ module MagLove
           if ::Tilt[input_type]
             template = ::Tilt.new(absolute_path)
             locals[:base_path] = theme_base_path(nil, theme)
-            @contents = template.render(nil, locals)
+            @contents = template.render(Object.new, locals)
           else
             @contents = File.read(absolute_path)
           end

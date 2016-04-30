@@ -31,7 +31,7 @@ module MagLove
           
           if File.exists?(include_path)
             include_template = ::Tilt.new(include_path)
-            include_template.render(nil, locals)
+            include_template.render(Object.new, locals)
           else
             raise "Path not found: #{include_path}"
           end

@@ -14,8 +14,4 @@ Tilt.mappings["coffee"] = [MagLove::Tilt::CoffeeTemplate]
 Tilt.mappings["js"] = [MagLove::Tilt::JsTemplate]
 Tilt.mappings["twig"] = [MagLove::Tilt::TwigTemplate]
 
-# Fix RbConfig warning
-Object.send :remove_const, :Config
-Config = RbConfig
-
 MagLove::Application.new.run
