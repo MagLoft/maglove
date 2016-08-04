@@ -8,7 +8,7 @@ Dotenv.load
 # Set up Hamloft
 Hamloft.register_template(:tumblr, MagLove::Template::Tumblr)
 Tilt.mappings["haml"] = [MagLove::Tilt::HamlTemplate]
-Tilt.mappings["sass"] = [MagLove::Tilt::SassTemplate]
+Tilt.mappings["scss"] = [MagLove::Tilt::ScssTemplate]
 Tilt.mappings["less"] = [MagLove::Tilt::LessTemplate]
 Tilt.mappings["yml"] = [MagLove::Tilt::YamlTemplate]
 Tilt.mappings["coffee"] = [MagLove::Tilt::CoffeeTemplate]

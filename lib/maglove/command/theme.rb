@@ -7,7 +7,7 @@ module MagLove
 
         task :compile, theme: ENV["THEME"], sync: "NO", bucket: "localhost:3002" do |args, options|
           info("▸ compiling theme #{options.theme}")
-          invoke_tasks(["core:validate", "core:clean", "compile:coffee", "compile:css", "compile:yaml", "compile:templates", "copy:base_images", "copy:images", "copy:thumbs", "compress:theme"], options)
+          invoke_tasks(["core:validate", "core:clean", "compile:coffee", "copy:base_images", "copy:images", "compile:css", "compile:yaml", "compile:templates", "copy:thumbs", "compress:theme"], options)
           
           if options.sync == "YES"
             error!("▸ SYNC error: please specify a bucket to use (cdn.magloft.com, test-cdn.magloft.com)") if options.bucket == "localhost:3001"
