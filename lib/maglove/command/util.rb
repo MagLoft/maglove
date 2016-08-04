@@ -26,7 +26,7 @@ module MagLove
           info("▸ watching theme #{options.theme}")
           watch_config({
             "compile:coffee" => [theme_path("**/*.{coffee,js}", options.theme), theme_base_path("**/*.{coffee,js}", options.theme)],
-            "compile:less" => [theme_path("**/*.{less,css}", options.theme), theme_base_path("**/*.{less,css}", options.theme)],
+            "compile:css" => [theme_path("**/*.{less,scss,css}", options.theme), theme_base_path("**/*.{less,scss,css}", options.theme)],
             "compile:templates" => [theme_path("**/*.{haml,twig,html}", options.theme)],
             "copy:base_images" => theme_base_path("images/**/*.{jpg,jpeg,gif,png,svg}", options.theme),
             "copy:images" => theme_path("images/**/*.{jpg,jpeg,gif,png,svg}", options.theme)

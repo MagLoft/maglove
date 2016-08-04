@@ -10,6 +10,7 @@ module MagLove
         "haml" => "html",
         "twig" => "html",
         "less" => "css",
+        "scss" => "css",
         "coffee" => "js",
         "yml" => "json"
       }

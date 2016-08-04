@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "minitar", "~> 0.5"
   s.add_runtime_dependency "therubyracer", "~> 0.12"
   s.add_runtime_dependency "less", "~> 2.6"
+  s.add_runtime_dependency "sass", "~> 3.4"
   s.add_runtime_dependency "webrick", "~> 1.3"
   s.add_runtime_dependency "commander", "~> 4.3"
   s.add_runtime_dependency "filewatcher", "~> 0.5"

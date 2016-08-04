@@ -9,9 +9,13 @@ module MagLove
           asset = theme_asset("theme.coffee", options.theme)
           debug("▸ created #{asset.logical_path}") if asset.write!
         end
-  
-        task :less, theme: "!" do |args, options|
-          asset = theme_asset("theme.less", options.theme)
+        
+        task :css, theme: "!" do |args, options|
+          if File.exists?(theme_path("theme.scss", options.theme))
+            asset = theme_asset("theme.scss", options.theme)
+          else
+            asset = theme_asset("theme.less", options.theme)
+          end
           debug("▸ created #{asset.logical_path}") if asset.write!
         end
   
