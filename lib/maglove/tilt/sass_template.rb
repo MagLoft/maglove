@@ -1,3 +1,11 @@
+module Sass::Script::Functions  
+  def asset(url)
+    assert_type url, :String
+    Sass::Script::Value::String.new("url(\"#{::Hamloft::Options.defaults[:asset_uri]}/#{url.value}\")")
+  end
+  declare(:asset, [:url])
+end
+
 module MagLove
   module Tilt
     class SassTemplate < ::Tilt::Template
