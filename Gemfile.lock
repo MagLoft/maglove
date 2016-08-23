@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglove (0.7.2)
+    maglove (0.8.1)
       actionpack (~> 5.0)
       activesupport (~> 5.0)
       bundler (~> 1.10)
@@ -10,7 +10,7 @@ PATH
       dotenv (~> 2.0)
       filewatcher (~> 0.5)
       haml (~> 4.0)
-      hamloft (~> 0.2.0)
+      hamloft (~> 0.2.1)
       image_optim (~> 0.21)
       image_optim_pack (~> 0.2)
       less (~> 2.6)
@@ -64,7 +64,7 @@ GEM
     fspath (3.0.1)
     haml (4.0.7)
       tilt
-    hamloft (0.2.0)
+    hamloft (0.2.1)
       haml (~> 4.0)
       nokogiri (~> 1.6)
     highline (1.7.8)
