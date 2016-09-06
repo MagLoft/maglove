@@ -1,3 +1,4 @@
+require "logging"
 module MagLove
   module Helper
     module LogHelper
@@ -30,7 +31,7 @@ module MagLove
             logger: :cyan,
             message: :black
           )
-          Logging.appenders.stdout("stdout", layout: Logging.layouts.pattern( pattern: '[%d] %-5l %-16X{command} %x %m\n', color_scheme: 'bright' ))
+          Logging.appenders.stdout("stdout", layout: Logging.layouts.pattern( pattern: '[%d] %-5l %-18X{full_command} %x %m\n', color_scheme: 'bright' ))
           @@logger = Logging::Logger.new(self.class.name)
           @@logger.level = :info
           @@logger.add_appenders('stdout')

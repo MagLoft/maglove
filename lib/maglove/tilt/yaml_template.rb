@@ -17,3 +17,5 @@ module MagLove
     end
   end
 end
+
+Tilt.mappings["yml"] = [MagLove::Tilt::YamlTemplate]

@@ -45,3 +45,5 @@ module MagLove
     end
   end
 end
+
+Tilt.mappings["coffee"] = [MagLove::Tilt::CoffeeTemplate]

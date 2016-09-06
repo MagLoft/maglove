@@ -18,3 +18,5 @@ module MagLove
 
   end
 end
+
+Tilt.mappings["haml"] = [MagLove::Tilt::HamlTemplate]

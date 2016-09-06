@@ -1,0 +1,14 @@
+!!! 5
+%html
+  %head
+    %meta{ charset: "UTF-8" }
+    %title= "#{theme} - INDEX"
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ name: "pageid", content: "0" }
+    %link{ href: "/fonts/fonts.css", media: "screen", rel: "stylesheet" }
+    %link{ href: "/maglove.css", media: "screen", rel: "stylesheet" }
+  %body#index
+    #templates-container
+      - templates.each do |template|
+        %a.template{href: "/#{template}"}
+          %p #{template}

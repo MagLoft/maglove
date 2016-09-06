@@ -47,3 +47,5 @@ module MagLove
 
   end
 end
+
+Tilt.mappings["twig"] = [MagLove::Tilt::TwigTemplate]

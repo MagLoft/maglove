@@ -16,3 +16,5 @@ module MagLove
     end
   end
 end
+
+Tilt.mappings["less"] = [MagLove::Tilt::LessTemplate]

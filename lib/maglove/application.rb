@@ -20,7 +20,6 @@ module MagLove
         error!("▸ Invalid widgets path: #{path}") if !File.directory?(path)
         widgets_path = path
       end
-      global_option '--production'
       default_command :help
       
       # Register Widgets

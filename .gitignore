@@ -4,3 +4,6 @@
 .DS_Store
 /maglove-*.gem
 /src/*
+/.sass-cache/*
+/export/*
+/widgets/*

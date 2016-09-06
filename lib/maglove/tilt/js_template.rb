@@ -36,3 +36,5 @@ module MagLove
     end
   end
 end
+
+Tilt.mappings["js"] = [MagLove::Tilt::JsTemplate]

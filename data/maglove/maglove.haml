@@ -1,0 +1,18 @@
+!!! 5
+%html
+  %head
+    %meta{ charset: "UTF-8" }
+    %title= "#{theme} - #{template}"
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1.0" }
+    %meta{ name: "pageid", content: "0" }
+    %style{ type: "text/css", id: "theme-css" }
+      = css_contents
+    %link{ href: "/fonts/fonts.css", media: "screen", rel: "stylesheet" }
+    %script{ type: "text/javascript", id: "theme-js" }
+      = js_contents
+    %script{ src: "/maglove.js", type: "text/javascript" }
+    %link{ href: "/maglove.css", media: "screen", rel: "stylesheet" }
+    :javascript
+      const maglove = new MagLove("#{template}")
+  %body
+    = contents

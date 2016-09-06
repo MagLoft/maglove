@@ -1,18 +1,30 @@
 #!/usr/bin/env ruby
-$:.push File.expand_path("../../lib", __FILE__)
+$:.push("lib/")
+require "thor"
+require "ext/thor/option"
+require "pry"
+require 'coffee_script'
+require "active_support/all"
+require "hamloft"
+require "workspace"
+require "maglove/workspace"
+require "maglove/commands/base"
+require "maglove/commands/fonts"
+require "maglove/commands/theme"
+require "maglove/commands/assets"
+require "maglove/commands/main"
+require "action_dispatch/http/mime_type"
 
-require "maglove"
+# register eidgets
+if File.directory?("widgets")
+  Dir["widgets/**/*.rb"].each do |widget_path|
+    require "./#{widget_path}"
+    klass_name = widget_path.gsub(/\.rb$/, "").camelcase
+    Hamloft.register_widget(klass_name.constantize)
+  end
+end
 
-Dotenv.load
+# allow colons
+ARGV.unshift(*ARGV.shift.split(":")) if ARGV[0].include?(":")
 
-# Set up Hamloft
-Hamloft.register_template(:tumblr, MagLove::Template::Tumblr)
-Tilt.mappings["haml"] = [MagLove::Tilt::HamlTemplate]
-Tilt.mappings["scss"] = [MagLove::Tilt::ScssTemplate]
-Tilt.mappings["less"] = [MagLove::Tilt::LessTemplate]
-Tilt.mappings["yml"] = [MagLove::Tilt::YamlTemplate]
-Tilt.mappings["coffee"] = [MagLove::Tilt::CoffeeTemplate]
-Tilt.mappings["js"] = [MagLove::Tilt::JsTemplate]
-Tilt.mappings["twig"] = [MagLove::Tilt::TwigTemplate]
-
-MagLove::Application.new.run
+MagLove::Commands::Main.start

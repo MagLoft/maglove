@@ -40,3 +40,5 @@ module MagLove
     end
   end
 end
+
+Tilt.mappings["scss"] = [MagLove::Tilt::ScssTemplate]

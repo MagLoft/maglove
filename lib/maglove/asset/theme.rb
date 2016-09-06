@@ -1,10 +1,20 @@
+require "tilt"
+require "sass"
+require "less"
+require "maglove/tilt/twig_template"
+require "maglove/tilt/haml_template"
+require "maglove/tilt/less_template"
+require "maglove/tilt/scss_template"
+require "maglove/tilt/coffee_template"
+require "maglove/tilt/js_template"
+require "maglove/tilt/yaml_template"
+
 module MagLove
   module Asset
     class Theme
-      include MagLove::Helper::AssetHelper
+      include Workspace
       include MagLove::Helper::LogHelper
-      include MagLove::Helper::ThemeHelper
-      attr_reader :mtime, :path, :theme, :valid, :locals, :contents
+      attr_reader :mtime, :path, :valid, :contents, :options
 
       OUTPUT_MAPPING = {
         "haml" => "html",
@@ -15,16 +25,14 @@ module MagLove
         "yml" => "json"
       }
 
-      def initialize(path, theme, locals={})
+      def initialize(path, options={})
         @path = path
-        @theme = theme
-        @locals = locals
+        @options = options
         @mtime = File.mtime(absolute_path)
         begin
           if ::Tilt[input_type]
             template = ::Tilt.new(absolute_path)
-            locals[:base_path] = theme_base_path(nil, theme)
-            @contents = template.render(Object.new, locals)
+            @contents = template.render(Object.new, @options.merge(base_path: theme_base_dir.to_s))
           else
             @contents = File.read(absolute_path)
           end
@@ -52,37 +60,36 @@ module MagLove
       def write_to!(path)
         return false if not valid?
         FileUtils.mkdir_p(File.dirname(path))
-        
-        File.open("#{path}+", 'wb') do |f|
-          f.write @contents
-        end
-        
-        # Atomic write
+        File.open("#{path}+", 'wb') { |f| f.write @contents }
         FileUtils.mv("#{path}+", path)
-
-        # Set mtime correctly
         File.utime(mtime, mtime, path)
-
         true
       ensure
-        # Ensure tmp file gets cleaned up
         FileUtils.rm("#{path}+") if File.exist?("#{path}+")
       end
   
       def absolute_path
-        File.absolute_path("src/themes/#{theme}/#{path}")
+        if @options[:base]
+          File.absolute_path("src/base/#{theme_config(:base_version)}/#{path}")
+        else
+          File.absolute_path("src/themes/#{@options[:theme]}/#{path}")
+        end
       end
 
       def logical_path
         return false if not valid?
-        "#{File.dirname(path)}/#{File.basename(path,'.*')}.#{output_type}"
+        dirname = File.dirname(path)
+        if (dirname == "/")
+          "#{File.basename(path,'.*')}.#{output_type}"
+        else
+          "#{dirname}/#{File.basename(path,'.*')}.#{output_type}"
+        end
       end
 
       def output_path
         return false if not valid?
-        "dist/themes/#{theme}/#{logical_path}"
+        "dist/themes/#{@options[:theme]}/#{logical_path}"
       end
-
     end
   end
 end

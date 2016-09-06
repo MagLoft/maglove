@@ -1,10 +1,7 @@
 module MagLove
   class Server
     module Hpub
-    
       class IssueServlet < WEBrick::HTTPServlet::AbstractServlet
-        include Commander::Methods
-      
         def do_GET(req, res)
           theme = File.basename(req.path, ".*")
           config = theme_config(nil, theme)
@@ -55,11 +52,11 @@ module MagLove
             # compile template
             template = File.basename(file, ".*")
             locals = {}
-            locals_contents = theme_contents(file.sub(/\.[^.]+\z/, ".yml"), theme)
+            locals_contents = theme_x_contents(file.sub(/\.[^.]+\z/, ".yml"), theme)
             if locals_contents
               locals = YAML.load(locals_contents).with_indifferent_access
             end
-            asset = theme_asset(file, theme, locals)
+            asset = theme_x_asset(file, theme, locals)
           
             # wrap in page
             page_contents = File.read("#{data_dir}/hpub/page.haml")
@@ -158,8 +155,6 @@ module MagLove
       end
     
       class ManifestServlet < WEBrick::HTTPServlet::AbstractServlet
-        include Commander::Methods
-      
         def do_GET(req, res)
           res.content_type = "application/json"
           manifest = []
