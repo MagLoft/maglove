@@ -9,7 +9,7 @@ module Workspace
       def download(url)
         url = "http:#{url}" if url[0..1] == "//"
         contents = open(url, { ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE, allow_redirections: :safe }).read
-        dir.create if !dir.exists?
+        dir.create unless dir.exists?
         write(contents)
         self
       end

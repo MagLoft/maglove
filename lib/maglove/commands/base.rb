@@ -5,22 +5,22 @@ module MagLove
     class Base < Thor
       include MagLove::Helper::LogHelper
       include Workspace
-      
+
       def initialize(args, opts, config)
         namespace = self.class.name.split("::").last.underscore
         command = config[:current_command].name
         Logging.mdc["full_command"] = "#{namespace}:#{command}"
         super
       end
-      
+
       private
-      
+
       def reset_invocations(*commands)
         reset_command_invocations(self.class, *commands)
       end
-        
+
       def reset_command_invocations(parent, *commands)
-        if commands.length == 0
+        if commands.length.zero?
           @_invocations[parent] = []
         else
           commands.each do |command|
@@ -29,7 +29,7 @@ module MagLove
         end
       end
     end
-    
+
     module OptionValidator
       def self.validate(switch, value)
         case switch
@@ -39,7 +39,7 @@ module MagLove
           true
         end
       end
-    
+
       def self.message(switch, value)
         case switch
         when "--theme"

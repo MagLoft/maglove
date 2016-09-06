@@ -9,72 +9,72 @@ module Workspace
     include Workspace::WorkspaceFile::Media
     include Workspace::WorkspaceFile::Net
     include Workspace::WorkspaceFile::Parse
-    
+
     attr_accessor :workspace, :path
-    
+
     def initialize(workspace, path)
       @workspace = workspace
       @path = path
     end
-    
+
     def set(data)
       @contents = data
       self
     end
-  
+
     def contents
       @contents ||= read
     end
-  
+
     def replace(key, value)
       contents.gsub!(key, value)
       self
     end
-    
-    def write(data=nil)
+
+    def write(data = nil)
       data ||= @contents
-      dir.create if !dir.exists?
-      File.open(to_s, "wb") {|file| file << data}
+      dir.create unless dir.exists?
+      File.open(to_s, "wb") { |file| file << data }
       self
     end
-    
+
     def copy(target_file)
-      target_file.dir.create if !target_file.dir.exists?
+      target_file.dir.create unless target_file.dir.exists?
       FileUtils.cp(to_s, target_file.to_s)
     end
-  
+
     def to_s
       File.join(@workspace, @path)
     end
-  
+
     def relative_path
-      @path.gsub(/^\//, "")
+      @path.sub(%r{^/}, "")
     end
-  
+
     def exists?
-      File.exists?(to_s) and !File.directory?(to_s)
+      File.exist?(to_s) and !File.directory?(to_s)
     end
-  
+
     def read
       File.open(to_s).read
     end
-    
+
     def dir
       Workspace::WorkspaceDir.new(@workspace, File.dirname(@path))
     end
-  
+
     def delete!
       FileUtils.rm_f(to_s)
     end
-  
+
     def basename
       File.basename(path, ".*")
     end
-  
+
     def extension
       File.extname(to_s).gsub(/^\./, "")
     end
-  
+
     def rename!(filename)
       FileUtils.mv(to_s, dir.file(filename).to_s) if exists?
       @path = dir.file(filename).path

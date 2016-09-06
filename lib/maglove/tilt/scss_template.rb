@@ -1,10 +1,10 @@
-module Sass::Script::Functions  
+module Sass::Script::Functions
   def asset(url)
     assert_type url, :String
     Sass::Script::Value::String.new("url(\"#{::Hamloft::Options.defaults[:asset_uri]}/#{url.value}\")")
   end
   # declare(:asset, [:url])
-  
+
   def asset_data(url)
     assert_type url, :String
     theme = options[:locals][:theme]
@@ -23,20 +23,21 @@ module MagLove
   module Tilt
     class ScssTemplate < ::Tilt::SassTemplate
       self.default_mime_type = 'text/css'
-    
+
       def prepare
       end
 
       def evaluate(scope, locals, &block)
-        prepared_data = "@base: \"#{locals[:base_path].sub("src/", "../../")}\";\n#{data}"
-        engine = Sass::Engine.new(prepared_data, sass_options.merge({locals: locals}))
+        prepared_data = "@base: \"#{locals[:base_path].sub('src/', '../../')}\";\n#{data}"
+        engine = Sass::Engine.new(prepared_data, sass_options.merge({ locals: locals }))
         @output ||= engine.render
       end
-      
+
       private
-        def sass_options
-          options.merge(:filename => eval_file, :line => line, :syntax => :scss)
-        end
+
+      def sass_options
+        options.merge(filename: eval_file, line: line, syntax: :scss)
+      end
     end
   end
 end

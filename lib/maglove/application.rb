@@ -1,7 +1,7 @@
 module MagLove
   class Application
     include Commander::Methods
-    
+
     def run
       program :version, MagLove::VERSION
       program :description, 'MagLoft Themes Toolkit'
@@ -12,16 +12,16 @@ module MagLove
         logger.level = :debug
       end
       global_option '--verbosity LEVEL', 'Specify verbosity level (*info*, debug, warn, error)' do |verbosity|
-        verbosity = "info" if !["info", "debug", "warn", "error"].include?(verbosity.to_s)
+        verbosity = "info" unless ["info", "debug", "warn", "error"].include?(verbosity.to_s)
         logger.level = verbosity.to_sym
       end
       widgets_path = "widgets"
       global_option '--widgets-path PATH', 'Specify path to custom widgets' do |path|
-        error!("▸ Invalid widgets path: #{path}") if !File.directory?(path)
+        error!("▸ Invalid widgets path: #{path}") unless File.directory?(path)
         widgets_path = path
       end
       default_command :help
-      
+
       # Register Widgets
       if File.directory?(widgets_path)
         Dir["#{widgets_path}/**/*.rb"].each do |widget_path|
@@ -30,9 +30,9 @@ module MagLove
           Hamloft.register_widget(klass_name.constantize)
         end
       end
-      
+
       logger.level = ENV["LOG_LEVEL"].to_sym if ENV["LOG_LEVEL"]
-      
+
       MagLove::Command::Theme.new.run
       MagLove::Command::Core.new.run
       MagLove::Command::Compile.new.run
@@ -42,18 +42,17 @@ module MagLove
       MagLove::Command::Font.new.run
       MagLove::Command::Sync.new.run
       MagLove::Command::Server.new.run
-      
+
       # allow colons
-      ARGV[0] = ARGV[0].gsub(":", "-") if ARGV[0]
-      
+      ARGV[0] = ARGV[0].tr(":", "-") if ARGV[0]
+
       # merge first two commands
       if ARGV.length > 1 and defined_commands.keys.include?("#{ARGV[0]}-#{ARGV[1]}")
         ARGV[0] = "#{ARGV[0]}-#{ARGV[1]}"
         ARGV.slice!(1)
       end
-      
+
       run!
     end
-    
   end
 end

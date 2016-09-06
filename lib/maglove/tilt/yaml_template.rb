@@ -2,9 +2,8 @@ module MagLove
   module Tilt
     class YamlTemplate < ::Tilt::Template
       self.default_mime_type = 'application/json'
-    
+
       def prepare
-      
       end
 
       def evaluate(scope, locals, &block)

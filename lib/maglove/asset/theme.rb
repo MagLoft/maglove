@@ -25,7 +25,7 @@ module MagLove
         "yml" => "json"
       }
 
-      def initialize(path, options={})
+      def initialize(path, options = {})
         @path = path
         @options = options
         @mtime = File.mtime(absolute_path)
@@ -36,15 +36,15 @@ module MagLove
           else
             @contents = File.read(absolute_path)
           end
-        rescue Exception => e
+        rescue StandardError => e
           error("▸ #{e.message}")
         end
       end
-      
+
       def input_type
-        File.extname(path).gsub("\.", "")
+        File.extname(path).delete("\.")
       end
-      
+
       def output_type
         OUTPUT_MAPPING[input_type] or input_type
       end
@@ -56,9 +56,9 @@ module MagLove
       def write!
         write_to!(output_path)
       end
-      
+
       def write_to!(path)
-        return false if not valid?
+        return false unless valid?
         FileUtils.mkdir_p(File.dirname(path))
         File.open("#{path}+", 'wb') { |f| f.write @contents }
         FileUtils.mv("#{path}+", path)
@@ -67,7 +67,7 @@ module MagLove
       ensure
         FileUtils.rm("#{path}+") if File.exist?("#{path}+")
       end
-  
+
       def absolute_path
         if @options[:base]
           File.absolute_path("src/base/#{theme_config(:base_version)}/#{path}")
@@ -77,17 +77,17 @@ module MagLove
       end
 
       def logical_path
-        return false if not valid?
+        return false unless valid?
         dirname = File.dirname(path)
-        if (dirname == "/")
-          "#{File.basename(path,'.*')}.#{output_type}"
+        if dirname == "/"
+          "#{File.basename(path, '.*')}.#{output_type}"
         else
-          "#{dirname}/#{File.basename(path,'.*')}.#{output_type}"
+          "#{dirname}/#{File.basename(path, '.*')}.#{output_type}"
         end
       end
 
       def output_path
-        return false if not valid?
+        return false unless valid?
         "dist/themes/#{@options[:theme]}/#{logical_path}"
       end
     end

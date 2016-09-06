@@ -8,15 +8,15 @@ require "magloft/typeloft_template"
 module MagLoft
   class Api < Dialers::Wrapper
     attr_accessor :token
-    
-    def self.client(token=nil)
+
+    def self.client(token = nil)
       @client ||= self.new(token)
     end
-    
+
     def initialize(token)
       @token = token
     end
-    
+
     def api_caller
       @api_caller ||= ApiCaller.new
     end
@@ -24,7 +24,7 @@ module MagLoft
     def typeloft_themes
       TypeloftTheme
     end
-    
+
     def typeloft_templates
       TypeloftTemplate
     end

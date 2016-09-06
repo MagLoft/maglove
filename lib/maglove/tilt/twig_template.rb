@@ -13,11 +13,11 @@ module MagLove
       def prepare; end
 
       def evaluate(scope, locals, &block)
-        return @output if not @output.nil?
+        return @output unless @output.nil?
         yaml_file     = Tempfile.new(['context-', '.yml'])
-        yaml_data     = locals.merge(scope.is_a?(Hash) ? scope : {}).stringify_keys
+        yaml_data     = locals.merge(scope.kind_of?(Hash) ? scope : {}).stringify_keys
         begin
-          File.open(yaml_file.path, 'w'){|file| file.write(yaml_data.to_yaml)}
+          File.open(yaml_file.path, 'w') { |file| file.write(yaml_data.to_yaml) }
           @output = `php #{binary_path} render -d '#{File.dirname(file)}' -y '#{yaml_file.path}' '#{File.basename(file)}'`
         rescue
           raise
@@ -28,23 +28,22 @@ module MagLove
       end
 
       private
-      
-        def install_php_dependencies
-          if !File.exists?(binary_path)
-            require 'open-uri'
-            File.open(binary_path, "wb") do |saved_file|
-              open("https://github.com/MagLoft/twigster/raw/master/twigster.phar", "rb") do |read_file|
-                saved_file.write(read_file.read)
-              end
+
+      def install_php_dependencies
+        unless File.exist?(binary_path)
+          require 'open-uri'
+          File.open(binary_path, "wb") do |saved_file|
+            open("https://github.com/MagLoft/twigster/raw/master/twigster.phar", "rb") do |read_file|
+              saved_file.write(read_file.read)
             end
           end
         end
-        
-        def binary_path
-          File.join(Gem.datadir("maglove"), "twigster.phar")
-        end
-    end
+      end
 
+      def binary_path
+        File.join(Gem.datadir("maglove"), "twigster.phar")
+      end
+    end
   end
 end
 

@@ -5,13 +5,14 @@ module MagLove
     class LiveReload
       include Workspace
       attr_reader :app, :options
-      
+
       def initialize(app, options = {})
-        @app, @options = app, options
+        @app = app
+        @options = options
         @theme = options[:theme]
         @templates = options[:templates]
       end
-    
+
       def call(env)
         if env["PATH_INFO"] == @options[:mount]
           request = Rack::Request.new(env)
@@ -21,13 +22,13 @@ module MagLove
             command = message["command"]
             handle_command(command, message)
           end
-          @ws.onclose = lambda { |event| clear_watcher! if @watcher }
+          @ws.onclose = ->(event) { clear_watcher! if @watcher }
           @ws.rack_response
         else
           @app.call(env)
         end
       end
-      
+
       def clear_watcher!
         @ws = nil
         @watcher.stop
@@ -35,20 +36,20 @@ module MagLove
         @watcher = nil
         @thread = nil
       end
-      
-      def send_command(command, data={})
+
+      def send_command(command, data = {})
         data[:command] = command
         @ws.send(JSON.dump(data)) if @ws
       end
-      
-      def handle_command(command, data={})
+
+      def handle_command(command, data = {})
         if command == "init"
           send_command("init", { templates: @templates })
         elsif command == "watch"
           watch
         end
       end
-      
+
       def watch
         patterns = [
           theme_file("**/*.{haml,twig,html,coffee,js,less,scss,css,yml}"),
@@ -60,17 +61,17 @@ module MagLove
         @thread = Thread.new(@watcher) do |fw|
           fw.watch do |filename, event|
             if workspace_file(".", filename).exists? and event != :delete
-              if filename =~ %r"^src/base/#{theme_config(:base_version)}/.*\.coffee"
+              if filename =~ %r{^src/base/#{theme_config(:base_version)}/.*\.coffee}
                 path = "theme.coffee"
-              elsif filename =~ %r"^src/base/#{theme_config(:base_version)}/.*\.less"
+              elsif filename =~ %r{^src/base/#{theme_config(:base_version)}/.*\.less}
                 path = "theme.less"
-              elsif filename =~ %r"^src/base/#{theme_config(:base_version)}/.*\.scss"
+              elsif filename =~ %r{^src/base/#{theme_config(:base_version)}/.*\.scss}
                 path = "theme.scss"
-              elsif filename =~ %r"^src/themes/#{@theme}/.*\.less"
+              elsif filename =~ %r{^src/themes/#{@theme}/.*\.less}
                 path = "theme.less"
-              elsif filename =~ %r"^src/themes/#{@theme}/.*\.scss"
+              elsif filename =~ %r{^src/themes/#{@theme}/.*\.scss}
                 path = "theme.scss"
-              elsif filename =~ %r"^src/themes/#{@theme}/.*\.coffee"
+              elsif filename =~ %r{^src/themes/#{@theme}/.*\.coffee}
                 path = "theme.coffee"
               else
                 path = filename.gsub("src/themes/#{@theme}/", '')
@@ -79,7 +80,7 @@ module MagLove
               if asset.write!
                 case asset.output_type
                 when "html"
-                  template = path.match(%r"templates/(.*)\.haml")[1]
+                  template = path.match(%r{templates/(.*)\.haml})[1]
                   send_command("html", { template: template, contents: asset.contents })
                 when "css"
                   send_command("css", { contents: asset.contents })

@@ -3,11 +3,11 @@ module MagLoft
     attr_accessor :changed_data
     attr_reader :destroyed
 
-    def initialize(attributes={})
+    def initialize(attributes = {})
       allowed_attributes = attributes.slice(*self.class.remote_attributes)
       Dialers::AssignAttributes.call(self, allowed_attributes.without(:id))
     end
-    
+
     def destroyed?
       self.destroyed == true
     end
@@ -25,7 +25,7 @@ module MagLoft
       end
       self
     end
-    
+
     def destroy
       return false if self.id.nil? or self.destroyed?
       transformable = Api.client.api_caller.delete("#{self.class.endpoint}/#{self.id}")
@@ -34,21 +34,21 @@ module MagLoft
       self.clear_changed_data!
       self
     end
-    
+
     def changed_data
       @changed_data ||= {}
     end
-    
+
     def clear_changed_data!
       self.changed_data = {}
       self
     end
-    
+
     class << self
       def remote_attributes
         @remote_attributes ||= []
       end
-      
+
       def remote_attribute(*args)
         args.each do |arg|
           remote_attributes.push(arg)
@@ -56,37 +56,37 @@ module MagLoft
           self.class_eval("def #{arg}=(val);@#{arg}=val;changed_data[:#{arg}]=val;end")
         end
       end
-      
-      def endpoint(path=nil)
+
+      def endpoint(path = nil)
         if path.nil?
           @endpoint
         else
           @endpoint = path
         end
       end
-      
+
       def find(id)
         api.get("#{endpoint}/#{id}").transform_to_one(self)
       end
-      
+
       def find_one(params)
         where(params).first
       end
-      
+
       def where(params)
         api.get(endpoint, params).transform_to_many(self)
       end
-      
+
       def all
         api.get(endpoint).transform_to_many(self)
       end
-      
-      def create(attributes={})
+
+      def create(attributes = {})
         entity = self.new(attributes)
         entity.save
         entity
       end
-      
+
       def method_missing(name, *args, &block)
         if name[0..7] == "find_by_" and args.length == 1
           attribute = name[8..-1].to_sym
@@ -98,9 +98,9 @@ module MagLoft
         end
         super
       end
-      
+
       private
-      
+
       def api
         Api.client.api_caller
       end

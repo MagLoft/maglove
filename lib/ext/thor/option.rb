@@ -1,7 +1,7 @@
 class Thor
   class Option
     attr_reader :validator
-    
+
     def initialize(name, options = {})
       options[:required] = false unless options.key?(:required)
       super
@@ -12,7 +12,7 @@ class Thor
       @validator    = options[:validator]
     end
   end
-  
+
   class Options
     # Parse the value at the peek analyzing if it requires an input or not.
     #
@@ -36,9 +36,8 @@ class Thor
       if option.validator and !option.validator.validate(switch, peek)
         fail MalformattedArgumentError, option.validator.message(switch, peek)
       end
-      
+
       send(:"parse_#{option.type}", switch)
     end
   end
-  
 end

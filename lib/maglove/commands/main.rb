@@ -5,13 +5,13 @@ module MagLove
 
       desc "fonts SUBCOMMAND ...ARGS", "manage fonts"
       subcommand "fonts", Commands::Fonts
-    
+
       desc "theme SUBCOMMAND ...ARGS", "manage theme"
       subcommand "theme", Commands::Theme
-      
+
       desc "assets SUBCOMMAND ...ARGS", "compile theme"
       subcommand "assets", Commands::Assets
-            
+
       desc "compile", "Compile all themes"
       def compile
         workspace_dir("src/themes").each_dir do |dir|

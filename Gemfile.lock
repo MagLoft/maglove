@@ -8,7 +8,7 @@ PATH
 PATH
   remote: .
   specs:
-    maglove (0.8.1)
+    maglove (1.0.0)
       actionpack (~> 5.0)
       activesupport (~> 5.0)
       bundler (~> 1.10)
