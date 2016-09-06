@@ -41,9 +41,9 @@ module MagLove
             haml.image_widget(source: chunk.children.first.attribute("src").to_s, margin_bottom: "1em")
           when "iframe"
             iframe_url = chunk.children.first.attribute("src").value
-            if iframe_url.include?("screen.yahoo.com") and match = iframe_url.match("screen\.yahoo\.com\/([a-z0-9\-]+)\.html")
+            if (match = iframe_url.match("screen\.yahoo\.com\/([a-z0-9\-]+)\.html"))
               haml.yahoo_screen_widget(yahoo_screen_id: match[1], margin_bottom: "1em")
-            elsif iframe_url.include?("www.youtube.com") and (match = iframe_url.match("www\.youtube\.com\/.*\/([a-zA-Z0-9]+)"))
+            elsif (match = iframe_url.match("www\.youtube\.com\/.*\/([a-zA-Z0-9]+)"))
               haml.youtube_widget(youtube_id: match[1], margin_bottom: "1em")
             else
               puts "-- unhandled iframe: #{iframe_url}"

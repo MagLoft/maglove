@@ -37,6 +37,10 @@ module MagLoft
       super
     end
 
+    def respond_to_missing?(method_name, include_private = false)
+      method_name.to_s.start_with?('find_by_') || super
+    end
+
     def create(attributes = {})
       entity = @resource_class.new(attributes.merge(@filter))
       entity.save

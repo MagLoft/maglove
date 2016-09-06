@@ -1,5 +1,5 @@
 module Workspace
-  @@config = {}
+  @config = {}
 
   def theme_dir(root: "src", theme: options[:theme])
     workspace_dir("#{root}/themes/#{theme}")
@@ -23,13 +23,13 @@ module Workspace
   end
 
   def theme_config(key = nil, theme = options[:theme])
-    unless @@config[theme]
-      @@config[theme] = theme_dir.file("theme.yml").read_yaml
+    unless @config[theme]
+      @config[theme] = theme_dir.file("theme.yml").read_yaml
     end
     if key.nil?
-      @@config[theme]
+      @config[theme]
     else
-      @@config[theme][key.to_s]
+      @config[theme][key.to_s]
     end
   end
 

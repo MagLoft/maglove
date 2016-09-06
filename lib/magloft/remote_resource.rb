@@ -99,6 +99,10 @@ module MagLoft
         super
       end
 
+      def respond_to_missing?(method_name, include_private = false)
+        method_name.to_s.start_with?('find_by_') || super
+      end
+
       private
 
       def api
