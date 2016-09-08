@@ -2,7 +2,7 @@ class Powersnap
   attr_accessor :urls, :prefix
 
   def initialize(urls, prefix: nil)
-    @urls = urls.map{|url| URI::encode(url)}
+    @urls = urls.map { |url| URI.encode(url) }
     @prefix = prefix
   end
 
@@ -15,9 +15,9 @@ class Powersnap
     else
       raise "Invalid file extension: #{extension}"
     end
-    cmd = "#{@prefix} powersnap -j -d \"#{dir}\" -t \"#{format}\" -q #{quality} -z #{zoom.to_s} #{page ? '--page' : ''} -w #{width.to_i.to_s} -h #{height.to_i.to_s} #{(css and "-c #{css}")} -f \"#{pattern}\" #{@urls.join(' ')}"
+    cmd = "#{@prefix} powersnap -j -d \"#{dir}\" -t \"#{format}\" -q #{quality} -z #{zoom} #{page ? '--page' : ''} -w #{width.to_i} -h #{height.to_i} #{(css and "-c #{css}")} -f \"#{pattern}\" #{@urls.join(' ')}"
     json_response = `#{cmd}`
-    
+
     response = JSON.parse(json_response)
     return response["stats"] == "success"
   end

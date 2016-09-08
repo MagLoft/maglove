@@ -62,7 +62,7 @@ module Workspace
     def dir
       Workspace::WorkspaceDir.new(@workspace, File.dirname(@path))
     end
-    
+
     def md5
       Digest::MD5.hexdigest(read)
     end
@@ -74,7 +74,7 @@ module Workspace
     def basename
       File.basename(path, ".*")
     end
-    
+
     def slug
       relative_path.chomp(File.extname(self.relative_path))
     end
@@ -87,7 +87,7 @@ module Workspace
       FileUtils.mv(to_s, dir.file(filename).to_s) if exists?
       @path = dir.file(filename).path
     end
-    
+
     def absolute_path
       File.absolute_path(to_s)
     end

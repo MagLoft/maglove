@@ -27,7 +27,7 @@ module MagLove
           workspace_dir("dist").file("#{options.theme}-#{template}.html").write(html_contents)
         end
       end
-      
+
       desc "thumbnails", "Create page thumbnails"
       option :theme, type: :string, required: true, validator: OptionValidator
       def thumbnails
@@ -39,7 +39,7 @@ module MagLove
         powersnap = Powersnap.new(urls)
         powersnap.generate(dir: theme_dir(root: "dist").dir("thumbnails").reset!.to_s, width: 768, height: 1024, pattern: "{basename}.png", zoom: 1.0, page: false)
         theme_dir(root: "dist").dir("thumbnails").files("*.png").each do |image_file|
-          template_name = image_file.basename.sub(%r{^#{options.theme}-}, "")
+          template_name = image_file.basename.sub(/^#{options.theme}-/, "")
           image_file.rename!("#{template_name}.png")
         end
       end
@@ -50,7 +50,7 @@ module MagLove
       option :thumbnails, type: :boolean, default: false
       def push
         info("▸ Pushing theme '#{options.theme}' to MagLoft")
-        
+
         # invoke asset compilation
         invoke(Assets, :compile, [], { theme: options.theme })
 
@@ -62,14 +62,14 @@ module MagLove
           info("▸ To create a new theme, run: maglove theme:create --theme '#{theme_identifier}'")
           error!("Theme '#{theme_identifier}' was not yet created.")
         end
-        
+
         # update theme
         info("▸ Synchronizing Metadata")
         theme.base_version = theme_config(:base_version)
         theme.name = theme_config(:name)
         theme.description = theme_config(:description)
         theme.save
-        
+
         # upload blocks
         theme_blocks = theme.typeloft_blocks.all
         theme_blocks_map = Hash[theme_blocks.map { |block| [block.identifier, block] }]
@@ -85,10 +85,10 @@ module MagLove
             end
           else
             info "▸ Creating Block '#{block_identifier}'"
-            block = theme.typeloft_blocks.create(identifier: block_identifier, name: block_file.basename.titlecase, contents: block_file.read)
+            theme.typeloft_blocks.create(identifier: block_identifier, name: block_file.basename.titlecase, contents: block_file.read)
           end
         end
-        
+
         # upload images
         info("▸ Synchronizing Images")
         theme_images = theme.typeloft_images.all
@@ -108,7 +108,7 @@ module MagLove
             new_image.upload(image_file.to_s)
           end
         end
-        
+
         # upload css/js
         info("▸ Synchronizing JavaScript and Stylesheet")
         theme.upload_stylesheet(theme_dir(root: "dist").file("theme.css").to_s)
@@ -132,14 +132,14 @@ module MagLove
             end
           else
             info "▸ Creating Template '#{template_identifier}'"
-            template = theme.typeloft_templates.create(identifier: template_identifier, title: template_identifier.titlecase, contents: template_file.read, position: position)
+            theme.typeloft_templates.create(identifier: template_identifier, title: template_identifier.titlecase, contents: template_file.read, position: position)
           end
         end
-        
+
         # update thumbnails
         if options.thumbnails
           info("▸ Synchronizing Thumbnails")
-          invoke(:thumbnails, [], {theme: options.theme})
+          invoke(:thumbnails, [], { theme: options.theme })
           theme.typeloft_templates.all.each do |template|
             thumbnail_file = theme_dir(root: "dist").dir("thumbnails").file("#{template.identifier}.png")
             if thumbnail_file.exists?
@@ -157,9 +157,9 @@ module MagLove
       option :theme, type: :string, required: true, validator: OptionValidator
       def create
         info("▸ Creating new theme '#{options.theme}'")
-        
-        error!("Missing yaml config 'name'") if !theme_config(:name)
-        error!("Missing yaml config 'base_version'") if !theme_config(:base_version)
+
+        error!("Missing yaml config 'name'") unless theme_config(:name)
+        error!("Missing yaml config 'base_version'") unless theme_config(:base_version)
         theme = magloft_api.typeloft_themes.find_by_identifier(options.theme)
         error!("This theme already exists") unless theme.nil?
         magloft_api.typeloft_themes.create(identifier: options.theme, name: theme_config(:name), description: theme_config(:description), base_version: theme_config(:base_version))

@@ -31,7 +31,7 @@ module MagLoft
     def typeloft_templates
       TypeloftTemplate
     end
-    
+
     def typeloft_blocks
       TypeloftBlock
     end

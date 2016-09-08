@@ -3,7 +3,7 @@ module MagLoft
     endpoint "api/maglove/v1/typeloft_templates"
     remote_attribute :identifier, :title, :contents, :public, :position, :typeloft_theme_id, :user_id, :created_at, :updated_at
     attr_accessor :thumbnail_policy
-    
+
     def upload_thumbnail(file_path)
       return false if thumbnail_policy.nil?
       conn = Faraday.new(url: thumbnail_policy["url"]) do |f|

@@ -9,7 +9,7 @@ require "maglove/commands/main"
 require "block_resolver"
 
 module Maglove
-  def self.theme_config(key=nil, theme)
+  def self.theme_config(key = nil, theme)
     @theme_config ||= {}
     unless @theme_config[theme]
       config_file = Workspace::WorkspaceFile.new("src/themes/#{theme}", "theme.yml")
@@ -21,7 +21,7 @@ module Maglove
       @theme_config[theme][key.to_s]
     end
   end
-  
+
   def self.logger
     if @logger.nil?
       Logging.color_scheme("bright",

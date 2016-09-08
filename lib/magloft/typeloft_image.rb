@@ -3,7 +3,7 @@ module MagLoft
     endpoint "api/maglove/v1/typeloft_images"
     remote_attribute :title, :user_id, :typeloft_folder_id, :typeloft_theme_id, :remote_file, :md5
     attr_accessor :policy, :content_type
-    
+
     def upload(file_path)
       return false if policy.nil?
       conn = Faraday.new(url: policy["url"]) do |f|

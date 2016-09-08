@@ -19,8 +19,8 @@ module Workspace
   def gem_dir
     workspace_dir(Gem.datadir("maglove"))
   end
-  
-  def theme_config(key=nil, theme: options[:theme])
+
+  def theme_config(key = nil, theme: options[:theme])
     Maglove.theme_config(key, theme)
   end
 

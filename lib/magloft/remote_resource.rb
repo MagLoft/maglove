@@ -47,11 +47,11 @@ module MagLoft
       self.changed_data = {}
       self
     end
-    
+
     def update_data(key, value)
       if self.send(key) != value
         instance_variable_set("@#{key}", value)
-        changed_data[key] =value
+        changed_data[key] = value
       end
     end
 
