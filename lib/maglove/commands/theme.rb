@@ -37,18 +37,22 @@ module MagLove
       def push
         info("▸ Pushing theme '#{options.theme}' to MagLoft")
 
-        # invoke asset compilation
-        invoke(Fonts, :compile, [], {})
-        invoke(Assets, :compile, [], { theme: options.theme })
-
         # validate theme
         theme_identifier = theme_config(:identifier)
         error!("Theme '#{theme_identifier}' not found") unless theme_identifier
-        theme = magloft_api.typeloft_themes.find_by_identifier(theme_identifier)
+        begin
+          theme = magloft_api.typeloft_themes.find_by_identifier(theme_identifier)
+        rescue MagLoft::ApiCaller::UnauthorizedError => e
+          error!("▸ You are not allowed to access the MagLoft API.")
+        end
         if theme.nil?
           info("▸ To create a new theme, run: maglove theme:create --theme '#{theme_identifier}'")
           error!("Theme '#{theme_identifier}' was not yet created.")
         end
+        
+        # invoke asset compilation
+        invoke(Fonts, :compile, [], {})
+        invoke(Assets, :compile, [], { theme: options.theme })
 
         # update theme
         info("▸ Synchronizing Metadata")
