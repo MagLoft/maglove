@@ -2,8 +2,8 @@ module MagLoft
   class ApiCaller < Dialers::Caller
     MAX_RETRIES = 0
     TIMEOUT_IN_SECONDS = 600
-    MAGLOFT_API_URL = "https://www.magloft.dev"
-    MAGLOFT_CDN_URL = "https://cdn.magloft.dev"
+    MAGLOFT_API_URL = "https://www.magloft.com"
+    MAGLOFT_CDN_URL = "https://storage.googleapis.com/cdn.magloft.com/"
 
     setup_api(url: MAGLOFT_API_URL) do |faraday|
       faraday.request :json

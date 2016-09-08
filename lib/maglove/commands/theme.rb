@@ -90,8 +90,8 @@ module MagLove
             if image_file.md5 != existing_image.md5
               info("▸ Updating Image '#{remote_file}'")
               existing_image.md5 = image_file.md5
-              existing_image.save
               existing_image.upload(image_file.to_s)
+              existing_image.save
             end
           else
             info("▸ Creating Image '#{remote_file}'")
