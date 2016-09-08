@@ -1,7 +1,6 @@
 require "tilt"
 require "sass"
 require "less"
-require "maglove/tilt/twig_template"
 require "maglove/tilt/haml_template"
 require "maglove/tilt/less_template"
 require "maglove/tilt/scss_template"
@@ -18,7 +17,6 @@ module MagLove
 
       OUTPUT_MAPPING = {
         "haml" => "html",
-        "twig" => "html",
         "less" => "css",
         "scss" => "css",
         "coffee" => "js",

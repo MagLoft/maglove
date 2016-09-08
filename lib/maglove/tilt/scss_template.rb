@@ -1,9 +1,12 @@
 module Sass::Script::Functions
   def asset(url)
     assert_type url, :String
-    Sass::Script::Value::String.new("url(\"#{::Hamloft::Options.defaults[:asset_uri]}/#{url.value}\")")
+    Sass::Script::Value::String.new("url(\"#{asset_uri}/#{url.value}\")")
   end
-  # declare(:asset, [:url])
+
+  def asset_uri
+    options[:locals][:asset_uri] || Hamloft.asset_uri
+  end
 
   def asset_data(url)
     assert_type url, :String

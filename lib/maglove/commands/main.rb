@@ -1,8 +1,6 @@
 module MagLove
   module Commands
     class Main < Base
-      class_option :asset_uri, type: :string, default: ""
-
       desc "fonts SUBCOMMAND ...ARGS", "manage fonts"
       subcommand "fonts", Commands::Fonts
 

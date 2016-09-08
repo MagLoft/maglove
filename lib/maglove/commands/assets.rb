@@ -11,7 +11,7 @@ module MagLove
         invoke(:stylesheet)
         invoke(:yaml)
         invoke(:templates)
-        invoke(:thumbnails)
+        invoke(:blocks)
       end
 
       desc "clean", "Clean theme dist directory"
@@ -41,7 +41,7 @@ module MagLove
 
       desc "stylesheet", "Compile Stylesheet"
       def stylesheet
-        info("▸ Compiling stylesheet")
+        info("▸ Compiling Stylesheet")
         theme_dir.files("theme.{scss,less}").first.asset.write!
       end
 
@@ -54,36 +54,26 @@ module MagLove
       desc "templates", "Compile HAML Templates"
       def templates
         info("▸ Compiling HAML Templates")
-        Hamloft::Options.defaults[:asset_uri] = options.asset_uri
-        theme_dir.files("templates/*.{html,haml,twig}").each do |file|
-          debug("~> compiling #{file}")
-          file.asset.write!
+        asset_uri = "file://#{workspace_dir('dist').absolute_path}"
+        theme_config(:templates).each do |template|
+          debug "~> processing template #{template}"
+          template_file = theme_dir.file("templates/#{template}.haml")
+          error!("~> Template '#{template}' does not exist!") if template_file.nil?
+          contents = template_file.asset(asset_uri: asset_uri).contents
+          html_contents = gem_dir.file("export.haml").read_hamloft(theme: options.theme, contents: contents, asset_uri: asset_uri)
+          theme_dir(root: "dist").file("templates/#{template}.html").write(html_contents)
         end
       end
 
-      desc "thumbnails", "Copy Thumbnail Images"
-      def thumbnails
-        info("▸ Copying Thumbnails")
-        theme_dir.files("thumbs/**/*.{jpg,png,gif,svg}").each do |file|
-          debug("~> copying #{file}")
-          file.asset.write!
-        end
-      end
-
-      desc "zip", "Archive theme"
-      def zip
-        info("▸ Creating #{options.theme}.tar.gz")
-        require "archive/tar/minitar"
-        target = "themes/#{options.theme}/#{options.theme}.tar.gz"
-        Dir.chdir("dist") do
-          tgz = Zlib::GzipWriter.new(File.open(target, "wb"))
-          Archive::Tar::Minitar::Output.open(tgz) do |tar|
-            Dir["themes/#{options.theme}/**/*"].reject { |file| file == target }.each do |file|
-              unless %r{^themes/#{options.theme}/(images|thumbs|templates)} =~ file
-                Archive::Tar::Minitar.pack_file(file, tar)
-              end
-            end
-          end
+      desc "blocks", "Compile HAML Blocks"
+      def blocks
+        info("▸ Compiling HAML Blocks")
+        asset_uri = "file://#{workspace_dir('dist').absolute_path}"
+        theme_dir.dir("blocks").files("**/*.haml").each do |block_file|
+          debug "~> processing block #{block_file.basename}"
+          contents = block_file.asset(asset_uri: asset_uri).contents
+          html_contents = gem_dir.file("export.haml").read_hamloft(theme: options.theme, contents: contents, asset_uri: asset_uri)
+          theme_dir(root: "dist").file("blocks/#{block_file.basename}.html").write(html_contents)
         end
       end
     end

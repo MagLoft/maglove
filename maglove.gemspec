@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "dotenv", "~> 2.0"
   s.add_runtime_dependency 'haml', "~> 4.0"
   s.add_runtime_dependency "thor", "~> 0.19"
-  s.add_runtime_dependency 'hamloft', "~> 0.2.1"
+  s.add_runtime_dependency 'hamloft', "~> 0.2.4"
   s.add_runtime_dependency "rubyzip", "~> 1.1"
   s.add_runtime_dependency "activesupport", "~> 5.0"
   s.add_runtime_dependency "actionpack", "~> 5.0"

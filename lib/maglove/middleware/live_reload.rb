@@ -52,7 +52,7 @@ module MagLove
 
       def watch
         patterns = [
-          theme_file("**/*.{haml,twig,html,coffee,js,less,scss,css,yml}"),
+          theme_file("**/*.{haml,html,coffee,js,less,scss,css,yml}"),
           theme_file("images/**/*.{jpg,jpeg,gif,png,svg}"),
           theme_base_file("**/*.{coffee,js,less,scss,css}"),
           theme_base_file("images/**/*.{jpg,jpeg,gif,png,svg}")

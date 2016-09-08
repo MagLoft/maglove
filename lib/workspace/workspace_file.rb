@@ -67,6 +67,10 @@ module Workspace
       Digest::MD5.hexdigest(read)
     end
 
+    def url
+      "file://#{absolute_path}"
+    end
+
     def delete!
       FileUtils.rm_f(to_s)
     end

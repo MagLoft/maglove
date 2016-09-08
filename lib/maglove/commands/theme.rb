@@ -12,36 +12,22 @@ module MagLove
         MagLove::Server.start(options.port, options.theme, theme_config(:templates))
       end
 
-      desc "export", "Export to HTML"
-      option :theme, type: :string, required: true, validator: OptionValidator
-      def export
-        info("▸ Exporting Theme '#{options.theme}'")
-        invoke(Assets, :compile, [], theme: options.theme, asset_uri: ".")
-        Hamloft::Options.defaults[:asset_uri] = "."
-        templates = theme_config(:templates)
-        templates.each do |template|
-          debug "▸ processing template #{template}"
-          template_file = theme_dir.files("templates/#{template}.{html,twig,haml}").first
-          error!("▸ Template '#{template}' does not exist!") if template_file.nil?
-          html_contents = gem_dir.file("export.haml").read_hamloft(theme: options.theme, contents: template_file.asset.contents, templates: templates, template: template)
-          workspace_dir("dist").file("#{options.theme}-#{template}.html").write(html_contents)
-        end
-      end
-
       desc "thumbnails", "Create page thumbnails"
       option :theme, type: :string, required: true, validator: OptionValidator
       def thumbnails
-        invoke(:export)
-        info("▸ Generating Thumbnails for Theme '#{options.theme}'")
-        html_files = workspace_dir("dist").files("#{options.theme}-*.html")
-        urls = html_files.map { |f| "file://#{f.absolute_path}" }
         require "powersnap"
-        powersnap = Powersnap.new(urls)
-        powersnap.generate(dir: theme_dir(root: "dist").dir("thumbnails").reset!.to_s, width: 768, height: 1024, pattern: "{basename}.png", zoom: 1.0, page: false)
-        theme_dir(root: "dist").dir("thumbnails").files("*.png").each do |image_file|
-          template_name = image_file.basename.sub(/^#{options.theme}-/, "")
-          image_file.rename!("#{template_name}.png")
-        end
+        invoke(Fonts, :compile, [], {})
+        invoke(Assets, :compile, [], theme: options.theme)
+
+        info("▸ Generating Template Thumbnails")
+        output_dir = theme_dir(root: "dist").chdir("templates")
+        powersnap = Powersnap.new(output_dir.files("*.html").map(&:url))
+        powersnap.generate(dir: output_dir.to_s, width: 768, height: 1024, pattern: "{basename}.png", zoom: 1.0, page: false)
+
+        info("▸ Generating Block Thumbnails")
+        output_dir = theme_dir(root: "dist").chdir("blocks")
+        powersnap = Powersnap.new(output_dir.files("*.html").map(&:url))
+        powersnap.generate(dir: output_dir.to_s, width: 512, height: 200, pattern: "{basename}.png", zoom: 1.0, page: true)
       end
 
       desc "push", "Push Theme to MagLoft"
@@ -52,6 +38,7 @@ module MagLove
         info("▸ Pushing theme '#{options.theme}' to MagLoft")
 
         # invoke asset compilation
+        invoke(Fonts, :compile, [], {})
         invoke(Assets, :compile, [], { theme: options.theme })
 
         # validate theme
@@ -120,7 +107,7 @@ module MagLove
         theme_templates_map = Hash[theme_templates.map { |template| [template.identifier, template] }]
         templates = theme_config(:templates)
         templates.each_with_index do |template_identifier, position|
-          template_file = theme_dir.files("templates/#{template_identifier}.{html,twig,haml}").first
+          template_file = theme_dir.file("templates/#{template_identifier}.haml")
           next unless !template_file.nil? and template_file.exists?
           if (template = theme_templates_map[template_identifier])
             template.title = template_identifier.titlecase
@@ -138,13 +125,23 @@ module MagLove
 
         # update thumbnails
         if options.thumbnails
-          info("▸ Synchronizing Thumbnails")
           invoke(:thumbnails, [], { theme: options.theme })
+
+          info("▸ Synchronizing Template Thumbnails")
           theme.typeloft_templates.all.each do |template|
-            thumbnail_file = theme_dir(root: "dist").dir("thumbnails").file("#{template.identifier}.png")
+            thumbnail_file = theme_dir(root: "dist").dir("templates").file("#{template.identifier}.png")
             if thumbnail_file.exists?
               info("~> Uploading Thumbnail for '#{template.identifier}'")
               template.upload_thumbnail(thumbnail_file.to_s)
+            end
+          end
+
+          info("▸ Synchronizing Block Thumbnails")
+          theme.typeloft_blocks.all.each do |block|
+            thumbnail_file = theme_dir(root: "dist").dir("blocks").file("#{block.identifier}.png")
+            if thumbnail_file.exists?
+              info("~> Uploading Thumbnail for '#{block.identifier}'")
+              block.upload_thumbnail(thumbnail_file.to_s)
             end
           end
         end

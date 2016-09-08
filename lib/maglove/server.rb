@@ -10,10 +10,8 @@ module MagLove
       app = Rack::Builder.new do
         use MagLove::Middleware::LiveReload, mount: "/maglove", theme: theme, templates: templates
         use Rack::Static, urls: ["/fonts", "/themes"], root: "dist"
-        run MagLove::Server.new(theme: theme, templates: templates)
+        run MagLove::Server.new(theme: theme, templates: templates, port: port)
       end
-      # self.webrick.mount "/issue", Hpub::IssueServlet
-      # self.webrick.mount "/manifest.json", Hpub::ManifestServlet
       Rack::Server.start(app: app, Port: port, server: :puma)
     end
 
@@ -37,9 +35,8 @@ module MagLove
     def process(template)
       css_contents = theme_dir(root: "dist").file("theme.css").read
       js_contents = theme_dir(root: "dist").file("theme.js").read
-      Hamloft::Options.defaults[:asset_uri] = "."
-      file = theme_dir.files("templates/#{template}.{html,twig,haml}").first
-      gem_dir.file("maglove.haml").read_hamloft(theme: @options[:theme], contents: file.asset.contents, css_contents: css_contents, js_contents: js_contents, template: template)
+      template_file = theme_dir.file("templates/#{template}.haml")
+      gem_dir.file("maglove.haml").read_hamloft(theme: @options[:theme], contents: template_file.asset.contents, css_contents: css_contents, js_contents: js_contents, template: template, asset_uri: ".", port: @options[:port] || 3000)
     end
 
     def setup(theme)

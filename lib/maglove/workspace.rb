@@ -25,8 +25,8 @@ module Workspace
   end
 
   class WorkspaceFile
-    def asset(theme: workspace_theme, base: false)
-      MagLove::Asset::Theme.new(path, { theme: theme, base: base })
+    def asset(theme: workspace_theme, base: false, asset_uri: ".")
+      MagLove::Asset::Theme.new(path, { theme: theme, base: base, asset_uri: asset_uri })
     end
 
     def workspace_theme

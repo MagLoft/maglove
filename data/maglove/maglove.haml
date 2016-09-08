@@ -13,6 +13,6 @@
     %script{ src: "/maglove.js", type: "text/javascript" }
     %link{ href: "/maglove.css", media: "screen", rel: "stylesheet" }
     :javascript
-      const maglove = new MagLove("#{template}")
+      const maglove = new MagLove("#{template}", "127.0.0.1", "#{port}")
   %body
     = contents
