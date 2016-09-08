@@ -10,5 +10,8 @@
   %body#index
     #templates-container
       - templates.each do |template|
-        %a.template{href: "/#{template}"}
-          %p #{template}
+        %div.template-item
+          %a.template{href: "/#{template}", style: "background-image: url(#{MagLoft::ApiCaller::MAGLOFT_CDN_URL}/themes/#{theme}/thumbnails/#{template}.png);"}
+            %div.template-label
+              %span
+                #{template}

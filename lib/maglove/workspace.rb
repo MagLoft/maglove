@@ -1,6 +1,4 @@
 module Workspace
-  @config = {}
-
   def theme_dir(root: "src", theme: options[:theme])
     workspace_dir("#{root}/themes/#{theme}")
   end
@@ -14,23 +12,16 @@ module Workspace
   end
 
   def theme_base_dir(theme: options[:theme])
-    base_version = theme_config(:base_version, theme)
+    base_version = theme_config(:base_version, theme: theme)
     workspace_dir("src/base/#{base_version}")
   end
 
   def gem_dir
     workspace_dir(Gem.datadir("maglove"))
   end
-
-  def theme_config(key = nil, theme = options[:theme])
-    unless @config[theme]
-      @config[theme] = theme_dir.file("theme.yml").read_yaml
-    end
-    if key.nil?
-      @config[theme]
-    else
-      @config[theme][key.to_s]
-    end
+  
+  def theme_config(key=nil, theme: options[:theme])
+    Maglove.theme_config(key, theme)
   end
 
   class WorkspaceFile

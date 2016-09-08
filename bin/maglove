@@ -7,22 +7,8 @@ require 'coffee_script'
 require "active_support/all"
 require "hamloft"
 require "workspace"
-require "maglove/workspace"
-require "maglove/commands/base"
-require "maglove/commands/fonts"
-require "maglove/commands/theme"
-require "maglove/commands/assets"
-require "maglove/commands/main"
+require "maglove"
 require "action_dispatch/http/mime_type"
-
-# register eidgets
-if File.directory?("widgets")
-  Dir["widgets/**/*.rb"].each do |widget_path|
-    require "./#{widget_path}"
-    klass_name = widget_path.gsub(/\.rb$/, "").camelcase
-    Hamloft.register_widget(klass_name.constantize)
-  end
-end
 
 # allow colons
 ARGV.unshift(*ARGV.shift.split(":")) if ARGV[0].include?(":")

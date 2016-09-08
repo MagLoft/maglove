@@ -1,6 +1,6 @@
 module MagLoft
   class RemoteResource
-    attr_accessor :changed_data
+    attr_accessor :changed_data, :id
     attr_reader :destroyed
 
     def initialize(attributes = {})
@@ -8,12 +8,16 @@ module MagLoft
       Dialers::AssignAttributes.call(self, allowed_attributes.without(:id))
     end
 
+    def changed?
+      self.changed_data.keys.count > 0
+    end
+
     def destroyed?
       self.destroyed == true
     end
 
     def save
-      return false if destroyed? or self.changed_data.keys.count <= 0
+      return false if destroyed? or !changed?
       if self.changed_data.keys.count > 0
         if self.id.nil?
           transformable = Api.client.api_caller.post(self.class.endpoint, self.changed_data)
@@ -43,6 +47,13 @@ module MagLoft
       self.changed_data = {}
       self
     end
+    
+    def update_data(key, value)
+      if self.send(key) != value
+        instance_variable_set("@#{key}", value)
+        changed_data[key] =value
+      end
+    end
 
     class << self
       def remote_attributes
@@ -53,7 +64,7 @@ module MagLoft
         args.each do |arg|
           remote_attributes.push(arg)
           self.class_eval("attr_accessor :#{arg}")
-          self.class_eval("def #{arg}=(val);@#{arg}=val;changed_data[:#{arg}]=val;end")
+          self.class_eval("def #{arg}=(val);update_data(:#{arg}, val);end")
         end
       end
 

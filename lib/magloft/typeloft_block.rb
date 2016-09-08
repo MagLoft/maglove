@@ -1,7 +1,7 @@
 module MagLoft
-  class TypeloftTemplate < RemoteResource
-    endpoint "api/maglove/v1/typeloft_templates"
-    remote_attribute :identifier, :title, :contents, :public, :position, :typeloft_theme_id, :user_id, :created_at, :updated_at
+  class TypeloftBlock < RemoteResource
+    endpoint "api/maglove/v1/typeloft_blocks"
+    remote_attribute :identifier, :name, :contents, :typeloft_theme_id, :user_id, :created_at, :updated_at
     attr_accessor :thumbnail_policy
     
     def upload_thumbnail(file_path)

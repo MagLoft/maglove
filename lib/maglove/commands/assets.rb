@@ -12,7 +12,6 @@ module MagLove
         invoke(:yaml)
         invoke(:templates)
         invoke(:thumbnails)
-        invoke(:zip)
       end
 
       desc "clean", "Clean theme dist directory"

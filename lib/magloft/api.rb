@@ -1,10 +1,13 @@
 require "dialers"
 require "magloft/api_caller"
-require "magloft/transformable"
-require "magloft/remote_resource"
 require "magloft/remote_collection"
-require "magloft/typeloft_theme"
+require "magloft/remote_resource"
+require "magloft/transformable"
+require "magloft/typeloft_block"
+require "magloft/typeloft_image"
 require "magloft/typeloft_template"
+require "magloft/typeloft_theme"
+
 module MagLoft
   class Api < Dialers::Wrapper
     attr_accessor :token
@@ -27,6 +30,10 @@ module MagLoft
 
     def typeloft_templates
       TypeloftTemplate
+    end
+    
+    def typeloft_blocks
+      TypeloftBlock
     end
   end
 end

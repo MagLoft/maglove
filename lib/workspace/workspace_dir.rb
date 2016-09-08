@@ -52,6 +52,14 @@ module Workspace
     def root_dir
       self.class.new(@workspace, "")
     end
+    
+    def chdir(target_dir=nil)
+      if target_dir.nil?
+        self.class.new(to_s, "")
+      else
+        self.class.new(dir(target_dir).to_s, "")
+      end
+    end
 
     def parent_dir
       root_dir.dir(File.expand_path("..", @path))

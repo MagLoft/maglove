@@ -14,6 +14,10 @@ module MagLove
       end
 
       private
+      
+      def magloft_api
+        @magloft_api ||= MagLoft::Api.client(options[:token])
+      end
 
       def reset_invocations(*commands)
         reset_command_invocations(self.class, *commands)

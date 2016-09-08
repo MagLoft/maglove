@@ -3,6 +3,7 @@ module MagLoft
     MAX_RETRIES = 0
     TIMEOUT_IN_SECONDS = 600
     MAGLOFT_API_URL = "https://www.magloft.dev"
+    MAGLOFT_CDN_URL = "https://cdn.magloft.dev"
 
     setup_api(url: MAGLOFT_API_URL) do |faraday|
       faraday.request :json
