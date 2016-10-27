@@ -12,7 +12,8 @@ module Maglove
           size: "md",
           margin_bottom: "1em",
           drop_cap: "",
-          drop_cap_color: "#000000"
+          drop_cap_color: "#000000",
+          line_height: ""
         }
       end
 
@@ -30,7 +31,7 @@ module Maglove
                 end
               end
 
-              haml_tag :span, class: "paragraph-content _typeloft_editable _typeloft_widget_autoselect" do
+              haml_tag :span, class: "paragraph-content _typeloft_editable _typeloft_widget_autoselect", style: style_string(widget.options, :line_height) do
                 haml_concat(contents) if contents
                 yield if block
               end

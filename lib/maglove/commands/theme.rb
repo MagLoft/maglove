@@ -44,14 +44,14 @@ module MagLove
         error!("Theme '#{theme_identifier}' not found") unless theme_identifier
         begin
           theme = magloft_api.typeloft_themes.find_by_identifier(theme_identifier)
-        rescue MagLoft::ApiCaller::UnauthorizedError => e
+        rescue MagLoft::ApiCaller::UnauthorizedError
           error!("▸ You are not allowed to access the MagLoft API.")
         end
         if theme.nil?
           info("▸ To create a new theme, run: maglove theme:create --theme '#{theme_identifier}'")
           error!("Theme '#{theme_identifier}' was not yet created.")
         end
-        
+
         # invoke asset compilation
         invoke(Fonts, :compile, [], {})
         invoke(Assets, :compile, [], { theme: options.theme })
@@ -68,19 +68,21 @@ module MagLove
         # upload blocks
         theme_blocks = theme.typeloft_blocks.all
         theme_blocks_map = Hash[theme_blocks.map { |block| [block.identifier, block] }]
-        block_files = theme_dir.chdir("blocks").files("**/*.haml")
-        block_files.each do |block_file|
-          block_identifier = block_file.slug
-          if (block = theme_blocks_map[block_identifier])
-            block.name = block_file.basename.titlecase
-            block.contents = block_file.read
-            if block.changed?
-              info "▸ Updating Block '#{block_identifier}'"
-              block.save
+        if theme_dir.chdir("blocks").exists?
+          block_files = theme_dir.chdir("blocks").files("**/*.haml")
+          block_files.each do |block_file|
+            block_identifier = block_file.slug
+            if (block = theme_blocks_map[block_identifier])
+              block.name = block_file.basename.titlecase
+              block.contents = block_file.read
+              if block.changed?
+                info "▸ Updating Block '#{block_identifier}'"
+                block.save
+              end
+            else
+              info "▸ Creating Block '#{block_identifier}'"
+              theme.typeloft_blocks.create(identifier: block_identifier, name: block_file.basename.titlecase, contents: block_file.read)
             end
-          else
-            info "▸ Creating Block '#{block_identifier}'"
-            theme.typeloft_blocks.create(identifier: block_identifier, name: block_file.basename.titlecase, contents: block_file.read)
           end
         end
 

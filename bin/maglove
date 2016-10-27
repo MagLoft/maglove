@@ -10,6 +10,9 @@ require "workspace"
 require "maglove"
 require "action_dispatch/http/mime_type"
 
+# require local widgets
+Dir["widgets/*.rb"].each { |path| require File.join(Dir.pwd, path) }
+
 # allow colons
 ARGV.unshift(*ARGV.shift.split(":")) if ARGV.count > 0 and ARGV[0].include?(":")
 

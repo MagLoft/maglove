@@ -7,10 +7,14 @@ module Maglove
 
       def defaults
         {
-          style: "primary",
-          type: "btn-fit",
+          background_color: "#e6e6e6",
+          border_radius: "4px",
+          border_width: "1px",
+          border_style: "solid",
+          media: false,
           size: "btn-lg",
-          media: false
+          style: "primary",
+          type: "btn-fit"
         }
       end
 
@@ -21,9 +25,15 @@ module Maglove
       end
 
       def button_options
-        result = { class: button_classes, href: (@options[:href] or "#"), style: style_string(@options, :margin, :padding) }
+        result = { class: button_classes, href: (@options[:href] or "#"), style: button_styles }
         result["data-media"] = @options[:media] if @options[:media] and !@options[:media].empty?
         result
+      end
+
+      def button_styles
+        style_string @options, :border_radius, :border_width, :border_style, :border_color, :background_color do |sb|
+          sb.add(:border_style, "solid")
+        end
       end
 
       module Helpers

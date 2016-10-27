@@ -11,21 +11,28 @@ module Maglove
           height: "auto",
           margin_bottom: "0px",
           background_color: "#EEEEEE",
+          buttons_position: "bottom",
           autoplay: "true",
           autoplay_timeout: "3000"
         }
       end
 
       def slider_options
-        data = { autoplay: @options[:autoplay], autoplay_timeout: @options[:autoplay_timeout] }
+        data = { class: slider_classes, autoplay: @options[:autoplay], autoplay_timeout: @options[:autoplay_timeout] }
         { class: "owl-carousel", style: slider_styles, data: data }
       end
 
       def slider_styles
         style_string @options, :margin, :height, :background_color do |sb|
-          sb.add(:min_height, "200px")
+          sb.add(:min_height, "120px")
           sb.add(:overflow, "hidden")
         end
+      end
+
+      def slider_classes
+        classes = ["owl-carousel", "owl-loaded", "owl-text-select-on", "owl-theme"]
+        classes.push("position-#{@options[:buttons_position]}") unless @options[:buttons_position].empty?
+        classes.join(" ")
       end
 
       module Helpers

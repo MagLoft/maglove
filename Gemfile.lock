@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglove (1.0.0)
+    maglove (1.0.1)
       actionpack (~> 5.0)
       activesupport (~> 5.0)
       bundler (~> 1.10)
@@ -126,16 +126,14 @@ GEM
     method_source (0.8.2)
     mini_portile2 (2.1.0)
     minitar (0.5.4)
-    minitest (5.9.0)
+    minitest (5.9.1)
     multi_json (1.12.1)
     multipart-post (2.0.0)
-    nokogiri (1.6.8)
+    nokogiri (1.6.8.1)
       mini_portile2 (~> 2.1.0)
-      pkg-config (~> 1.1.7)
     open_uri_redirections (0.2.1)
     parser (2.3.1.2)
       ast (~> 2.2)
-    pkg-config (1.1.7)
     powerpack (0.1.1)
     progress (3.2.2)
     pry (0.10.4)

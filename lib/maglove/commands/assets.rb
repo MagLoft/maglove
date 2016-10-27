@@ -68,12 +68,16 @@ module MagLove
       desc "blocks", "Compile HAML Blocks"
       def blocks
         info("▸ Compiling HAML Blocks")
-        asset_uri = "file://#{workspace_dir('dist').absolute_path}"
-        theme_dir.dir("blocks").files("**/*.haml").each do |block_file|
-          debug "~> processing block #{block_file.basename}"
-          contents = block_file.asset(asset_uri: asset_uri).contents
-          html_contents = gem_dir.file("export.haml").read_hamloft(theme: options.theme, contents: contents, asset_uri: asset_uri)
-          theme_dir(root: "dist").file("blocks/#{block_file.basename}.html").write(html_contents)
+        if theme_dir.dir("blocks").exists?
+          asset_uri = "file://#{workspace_dir('dist').absolute_path}"
+          theme_dir.dir("blocks").files("**/*.haml").each do |block_file|
+            debug "~> processing block #{block_file.basename}"
+            contents = block_file.asset(asset_uri: asset_uri).contents
+            html_contents = gem_dir.file("export.haml").read_hamloft(theme: options.theme, contents: contents, asset_uri: asset_uri)
+            theme_dir(root: "dist").file("blocks/#{block_file.basename}.html").write(html_contents)
+          end
+        else
+          debug "~> no blocks available"
         end
       end
     end

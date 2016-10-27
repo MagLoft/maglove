@@ -49,7 +49,7 @@ module MagLoft
       if: -> (response) { Dialers::Status.new(response.status).is?(422) },
       do: -> (response) { fail ValidationError, response }
     )
-    
+
     short_circuits.add(
       if: -> (response) { Dialers::Status.new(response.status).is?(401) },
       do: -> (response) { fail UnauthorizedError, response }
@@ -60,7 +60,7 @@ module MagLoft
 
     class ValidationError < Dialers::ErrorWithResponse
     end
-    
+
     class UnauthorizedError < Dialers::ErrorWithResponse
     end
   end
