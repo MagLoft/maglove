@@ -2,7 +2,6 @@
 $:.push("lib/")
 require "thor"
 require "ext/thor/option"
-require "pry"
 require 'coffee_script'
 require "active_support/all"
 require "hamloft"
