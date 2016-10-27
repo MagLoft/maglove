@@ -26,8 +26,10 @@ module MagLove
 
         info("▸ Generating Block Thumbnails")
         output_dir = theme_dir(root: "dist").chdir("blocks")
-        powersnap = Powersnap.new(output_dir.files("*.html").map(&:url))
-        powersnap.generate(dir: output_dir.to_s, width: 512, height: 200, pattern: "{basename}.png", zoom: 1.0, page: true)
+        if output_dir.exists?
+          powersnap = Powersnap.new(output_dir.files("*.html").map(&:url))
+          powersnap.generate(dir: output_dir.to_s, width: 512, height: 200, pattern: "{basename}.png", zoom: 1.0, page: true)
+        end
       end
 
       desc "push", "Push Theme to MagLoft"
