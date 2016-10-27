@@ -59,6 +59,8 @@ module MagLove
         theme.base_version = theme_config(:base_version)
         theme.name = theme_config(:name)
         theme.description = theme_config(:description)
+        theme.widgets = theme_config(:widgets)
+        theme.fonts = theme_config(:fonts)
         theme.save
 
         # upload blocks

@@ -1,7 +1,7 @@
 module MagLoft
   class TypeloftTheme < RemoteResource
     endpoint "api/maglove/v1/typeloft_themes"
-    remote_attribute :identifier, :name, :description, :base_version, :widgets, :user_id, :screenshots, :active
+    remote_attribute :identifier, :name, :description, :base_version, :widgets, :fonts, :user_id, :screenshots, :active
     attr_accessor :stylesheet_policy, :javascript_policy
 
     def typeloft_templates
