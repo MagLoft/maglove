@@ -6,6 +6,7 @@ require 'coffee_script'
 require "active_support/all"
 require "hamloft"
 require "workspace"
+require "typhoeus"
 require "maglove"
 require "action_dispatch/http/mime_type"
 

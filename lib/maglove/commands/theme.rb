@@ -90,21 +90,23 @@ module MagLove
         info("▸ Synchronizing Images")
         theme_images = theme.typeloft_images.all
         theme_images_map = Hash[theme_images.map { |image| [image.remote_file, image] }]
+        hydra = Typhoeus::Hydra.new
         theme_dir(root: "dist").files("images/**/*.{jpg,png,gif,svg}").each do |image_file|
           remote_file = "themes/#{options.theme}/#{image_file.relative_path}"
           if (existing_image = theme_images_map[remote_file])
             if image_file.md5 != existing_image.md5
               info("▸ Updating Image '#{remote_file}'")
               existing_image.md5 = image_file.md5
-              existing_image.upload(image_file.to_s)
+              hydra.queue(existing_image.queue_upload(image_file.to_s) {debug("▸ Finished updating Image '#{remote_file}'")})
               existing_image.save
             end
           else
             info("▸ Creating Image '#{remote_file}'")
             new_image = theme.typeloft_images.create(remote_file: remote_file, title: image_file.basename.titlecase, md5: image_file.md5)
-            new_image.upload(image_file.to_s)
+            hydra.queue(new_image.upload(image_file.to_s) {info("▸ Finished creating Image '#{remote_file}'")})
           end
         end
+        hydra.run
 
         # upload css/js
         info("▸ Synchronizing JavaScript and Stylesheet")
@@ -136,13 +138,14 @@ module MagLove
         # update thumbnails
         if options.thumbnails
           invoke(:thumbnails, [], { theme: options.theme })
-
+          hydra = Typhoeus::Hydra.new
+          
           info("▸ Synchronizing Template Thumbnails")
           theme.typeloft_templates.all.each do |template|
             thumbnail_file = theme_dir(root: "dist").dir("templates").file("#{template.identifier}.png")
             if thumbnail_file.exists?
               info("~> Uploading Thumbnail for '#{template.identifier}'")
-              template.upload_thumbnail(thumbnail_file.to_s)
+              hydra.queue(template.queue_upload_thumbnail(thumbnail_file.to_s) {info("▸ Finished uploading Thumbnail for '#{template.identifier}'")})
             end
           end
 
@@ -151,9 +154,10 @@ module MagLove
             thumbnail_file = theme_dir(root: "dist").dir("blocks").file("#{block.identifier}.png")
             if thumbnail_file.exists?
               info("~> Uploading Thumbnail for '#{block.identifier}'")
-              block.upload_thumbnail(thumbnail_file.to_s)
+              hydra.queue(block.queue_upload_thumbnail(thumbnail_file.to_s) {info("▸ Finished uploading Thumbnail for '#{block.identifier}'")})
             end
           end
+          hydra.run
         end
 
         info("▸ Successfully Pushed Theme")
