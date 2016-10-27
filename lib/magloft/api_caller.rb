@@ -1,11 +1,28 @@
+require "yaml"
 module MagLoft
   class ApiCaller < Dialers::Caller
     MAX_RETRIES = 0
     TIMEOUT_IN_SECONDS = 600
-    MAGLOFT_API_URL = "https://www.magloft.com"
-    MAGLOFT_CDN_URL = "https://storage.googleapis.com/cdn.magloft.com/"
 
-    setup_api(url: MAGLOFT_API_URL) do |faraday|
+    class << self
+      def default_api_config
+        { "api_url" => "https://www.magloft.com", "cdn_url" => "https://storage.googleapis.com/cdn.magloft.com" }
+      end
+
+      def api_config
+        @api_config ||= File.exist?("magloft-api.yml") ? YAML.load_file("magloft-api.yml") : default_api_config
+      end
+
+      def api_url
+        api_config["api_url"]
+      end
+
+      def cdn_url
+        api_config["cdn_url"]
+      end
+    end
+
+    setup_api(url: api_url) do |faraday|
       faraday.request :json
       faraday.request :request_headers, accept: "application/json"
       faraday.response :json

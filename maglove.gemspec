@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency "tilt", "~> 1.4"
   s.add_runtime_dependency "coffee-script", "~> 2.4"
   s.add_runtime_dependency "less", "~> 2.6"
+  s.add_runtime_dependency "therubyracer", "~> 0.12"
   s.add_runtime_dependency "sass", "~> 3.4"
   s.add_runtime_dependency "dialers", "~> 0.2"
   s.add_runtime_dependency "rubyzip", "~> 1.1"
