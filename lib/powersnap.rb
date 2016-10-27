@@ -1,7 +1,18 @@
 class Powersnap
   attr_accessor :urls, :prefix
 
+  class << self
+    def powersnap_config
+      @system_prefix ||= (File.exist?("powersnap.yml") ? YAML.load_file("powersnap.yml") : default_powersnap_config)
+    end
+    
+    def default_powersnap_config
+      { "prefix" => nil }
+    end
+  end
+
   def initialize(urls, prefix: nil)
+    prefix ||= self.class.powersnap_config["prefix"]
     @urls = urls.map { |url| URI.encode(url) }
     @prefix = prefix
   end
