@@ -11,6 +11,6 @@ require "maglove"
 require "action_dispatch/http/mime_type"
 
 # allow colons
-ARGV.unshift(*ARGV.shift.split(":")) if ARGV[0].include?(":")
+ARGV.unshift(*ARGV.shift.split(":")) if ARGV.count > 0 and ARGV[0].include?(":")
 
 MagLove::Commands::Main.start
