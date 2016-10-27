@@ -103,7 +103,7 @@ module MagLove
           else
             info("▸ Creating Image '#{remote_file}'")
             new_image = theme.typeloft_images.create(remote_file: remote_file, title: image_file.basename.titlecase, md5: image_file.md5)
-            hydra.queue(new_image.upload(image_file.to_s) {info("▸ Finished creating Image '#{remote_file}'")})
+            hydra.queue(new_image.queue_upload(image_file.to_s) {info("▸ Finished creating Image '#{remote_file}'")})
           end
         end
         hydra.run
