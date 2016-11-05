@@ -5,7 +5,7 @@ class Powersnap
     def powersnap_config
       @system_prefix ||= (File.exist?("powersnap.yml") ? YAML.load_file("powersnap.yml") : default_powersnap_config)
     end
-    
+
     def default_powersnap_config
       { "prefix" => nil }
     end

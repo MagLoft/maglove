@@ -97,13 +97,13 @@ module MagLove
             if image_file.md5 != existing_image.md5
               info("▸ Updating Image '#{remote_file}'")
               existing_image.md5 = image_file.md5
-              hydra.queue(existing_image.queue_upload(image_file.to_s) {debug("▸ Finished updating Image '#{remote_file}'")})
+              hydra.queue(existing_image.queue_upload(image_file.to_s) { debug("▸ Finished updating Image '#{remote_file}'") })
               existing_image.save
             end
           else
             info("▸ Creating Image '#{remote_file}'")
             new_image = theme.typeloft_images.create(remote_file: remote_file, title: image_file.basename.titlecase, md5: image_file.md5)
-            hydra.queue(new_image.queue_upload(image_file.to_s) {info("▸ Finished creating Image '#{remote_file}'")})
+            hydra.queue(new_image.queue_upload(image_file.to_s) { info("▸ Finished creating Image '#{remote_file}'") })
           end
         end
         hydra.run
@@ -139,13 +139,13 @@ module MagLove
         if options.thumbnails
           invoke(:thumbnails, [], { theme: options.theme })
           hydra = Typhoeus::Hydra.new
-          
+
           info("▸ Synchronizing Template Thumbnails")
           theme.typeloft_templates.all.each do |template|
             thumbnail_file = theme_dir(root: "dist").dir("templates").file("#{template.identifier}.png")
             if thumbnail_file.exists?
               info("~> Uploading Thumbnail for '#{template.identifier}'")
-              hydra.queue(template.queue_upload_thumbnail(thumbnail_file.to_s) {info("▸ Finished uploading Thumbnail for '#{template.identifier}'")})
+              hydra.queue(template.queue_upload_thumbnail(thumbnail_file.to_s) { info("▸ Finished uploading Thumbnail for '#{template.identifier}'") })
             end
           end
 
@@ -154,7 +154,7 @@ module MagLove
             thumbnail_file = theme_dir(root: "dist").dir("blocks").file("#{block.identifier}.png")
             if thumbnail_file.exists?
               info("~> Uploading Thumbnail for '#{block.identifier}'")
-              hydra.queue(block.queue_upload_thumbnail(thumbnail_file.to_s) {info("▸ Finished uploading Thumbnail for '#{block.identifier}'")})
+              hydra.queue(block.queue_upload_thumbnail(thumbnail_file.to_s) { info("▸ Finished uploading Thumbnail for '#{block.identifier}'") })
             end
           end
           hydra.run

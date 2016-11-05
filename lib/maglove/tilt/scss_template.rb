@@ -1,3 +1,4 @@
+require 'sass-css-importer'
 module Sass::Script::Functions
   def asset(url)
     assert_type url, :String

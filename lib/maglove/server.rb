@@ -10,6 +10,7 @@ module MagLove
       app = Rack::Builder.new do
         use MagLove::Middleware::LiveReload, mount: "/maglove", theme: theme, templates: templates
         use Rack::Static, urls: ["/fonts", "/themes"], root: "dist"
+        use Rack::Static, urls: ["/images"], root: "dist/themes/#{theme}"
         run MagLove::Server.new(theme: theme, templates: templates, port: port)
       end
       Rack::Server.start(app: app, Port: port, server: :puma)

@@ -11,7 +11,7 @@
     #templates-container
       - templates.each do |template|
         %div.template-item
-          %a.template{href: "/#{template}", style: "background-image: url(#{MagLoft::ApiCaller::MAGLOFT_CDN_URL}/themes/#{theme}/thumbnails/#{template}.png);"}
+          %a.template{href: "/#{template}", style: "background-image: url(#{MagLoft::ApiCaller.cdn_url}/themes/#{theme}/thumbnails/#{template}.png);"}
             %div.template-label
               %span
                 #{template}

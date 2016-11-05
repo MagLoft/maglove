@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglove (1.0.7)
+    maglove (1.0.8)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       bundler (~> 1.10)
@@ -20,6 +20,7 @@ PATH
       puma (~> 3.6)
       rubyzip (~> 1.1)
       sass (~> 3.4)
+      sass-css-importer (>= 1.0.0.beta.0)
       therubyracer (~> 0.12)
       thor (~> 0.19)
       tilt (~> 1.4)
@@ -46,7 +47,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
-    addressable (2.4.0)
+    addressable (2.5.0)
+      public_suffix (~> 2.0, >= 2.0.2)
     ast (2.3.0)
     builder (3.2.2)
     coffee-script (2.4.1)
@@ -137,6 +139,7 @@ GEM
       ast (~> 2.2)
     powerpack (0.1.1)
     progress (3.2.2)
+    public_suffix (2.0.3)
     puma (3.6.0)
     rack (2.0.1)
     rack-test (0.6.3)
@@ -157,6 +160,8 @@ GEM
     ruby-progressbar (1.8.1)
     rubyzip (1.2.0)
     sass (3.4.22)
+    sass-css-importer (1.0.0.beta.0)
+      sass (>= 3.1)
     therubyracer (0.12.2)
       libv8 (~> 3.16.14.0)
       ref
@@ -181,4 +186,4 @@ DEPENDENCIES
   rubocop (~> 0.32)
 
 BUNDLED WITH
-   1.12.4
+   1.13.6

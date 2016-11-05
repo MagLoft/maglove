@@ -42,7 +42,7 @@ module MagLove
       desc "stylesheet", "Compile Stylesheet"
       def stylesheet
         info("▸ Compiling Stylesheet")
-        theme_dir.files("theme.{scss,less}").first.asset.write!
+        theme_dir.files("theme.{scss,less}").first.asset(asset_uri: ".").write!
       end
 
       desc "yaml", "Compile YAML Manifest"

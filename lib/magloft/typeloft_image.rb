@@ -14,10 +14,10 @@ module MagLoft
       response = conn.put(nil, File.read(file_path))
       return (response.status == 200)
     end
-    
+
     def queue_upload(file_path, &block)
       return false if policy.nil?
-      request = Typhoeus::Request.new(policy["url"], method: :put, headers: policy["headers"], body: File.read(file_path), timeout: 200000)
+      request = Typhoeus::Request.new(policy["url"], method: :put, headers: policy["headers"], body: File.read(file_path), timeout: 200_000)
       request.on_complete(&block) if block
       request
     end
