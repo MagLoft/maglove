@@ -42,6 +42,11 @@ module Workspace
       target_file.dir.create unless target_file.dir.exists?
       FileUtils.cp(to_s, target_file.to_s)
     end
+    
+    def move(target_file)
+      target_file.dir.create unless target_file.dir.exists?
+      FileUtils.mv(to_s, target_file.to_s)
+    end
 
     def to_s
       File.join(@workspace, @path)
@@ -94,6 +99,10 @@ module Workspace
 
     def absolute_path
       File.absolute_path(to_s)
+    end
+    
+    def size
+      File.size(to_s)
     end
   end
 end
