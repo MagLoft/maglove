@@ -32,6 +32,29 @@ module MagLove
           file.asset.write!
         end
       end
+      
+      desc "imageoptim", "Optimize images"
+      option :percent, type: :numeric, required: true, default: 25
+      def imageoptim
+        require "image_optim"
+        optimizer = ImageOptim.new(nice: 20, pngout: true, optipng: {level: 5}, jpegoptim: {allow_lossy: true, max_quality: 80})
+        info("▸ Optimizing Images")
+        theme_dir.files("images/**/*.{jpg,png,gif}").each do |file|
+          if optimizer.optimizable?(file.to_s)
+            new_path = optimizer.optimize_image(file.to_s)
+            if !new_path.nil?
+              new_file = WorkspaceFile.new("/", new_path.to_s)
+              improvement = (file.size.to_f / new_file.size - 1) * 100
+              if improvement >= options.percent
+                info("~> #{file} optimized #{improvement.to_i}% (#{file.size/1000}kb to #{new_file.size/1000}kb)")
+                new_file.move(file)
+              else
+                debug("~> #{file} (#{improvement.to_i}% < #{options.percent}%)")
+              end
+            end
+          end
+        end
+      end
 
       desc "javascript", "Compile JavaScript"
       def javascript
