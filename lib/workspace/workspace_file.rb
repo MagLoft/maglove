@@ -1,3 +1,5 @@
+require 'cssminify'
+require 'closure-compiler'
 require 'workspace/workspace_file/archive'
 require 'workspace/workspace_file/media'
 require 'workspace/workspace_file/net'
@@ -104,5 +106,20 @@ module Workspace
     def size
       File.size(to_s)
     end
+    
+    def minify
+      if extension == "js"
+        set(Closure::Compiler.new.compile(contents))
+      elsif extension == "css"
+        set(CSSminify.compress(contents))
+      end
+      self
+    end
+    
+    def minify!
+      minify.write
+      self
+    end
+    
   end
 end

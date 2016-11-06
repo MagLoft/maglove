@@ -7,6 +7,7 @@ module MagLove
       def compile
         invoke(:clean)
         invoke(:images)
+        invoke(:videos)
         invoke(:javascript)
         invoke(:stylesheet)
         invoke(:yaml)
@@ -30,6 +31,15 @@ module MagLove
         theme_dir.files("images/**/*.{jpg,png,gif,svg}").each do |file|
           debug("~> Copying #{file}")
           file.asset.write!
+        end
+      end
+      
+      desc "videos", "Copy videos"
+      def videos
+        info("▸ Copying Videos")
+        theme_dir.files("videos/**/*.{mp4,webm,ogg}").each do |file|
+          debug("~> Copying #{file}")
+          file.asset(theme: options.theme).write!
         end
       end
       
@@ -72,6 +82,17 @@ module MagLove
       def yaml
         info("▸ Compiling YAML Manifest")
         theme_dir.file("theme.yml").asset.write!
+      end
+      
+      desc "compress", "Compress Assets for Distribution"
+      def compress
+        invoke(:javascript)
+        invoke(:stylesheet)
+        
+        info("▸ Compressing JavaScript")
+        theme_dir(root: "dist").file("theme.js").minify!
+        info("▸ Compressing Stylesheet")
+        theme_dir(root: "dist").file("theme.css").minify!
       end
 
       desc "templates", "Compile HAML Templates"

@@ -19,7 +19,7 @@ module MagLove
         @output = CoffeeScript.compile(@data, options)
 
         # handle includes
-        @output.gsub(/^include\("([^"]+)"\);$/) do |match|
+        @output.gsub!(/^include\("([^"]+)"\);$/) do |match|
           path = Regexp.last_match[1]
           path = "#{path}.coffee" if File.extname(path).empty?
           include_path = File.absolute_path(path, File.dirname(file))
@@ -36,6 +36,8 @@ module MagLove
             raise "Path not found: #{include_path}"
           end
         end
+        
+        @output
       end
 
       def allows_script?

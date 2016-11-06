@@ -55,6 +55,7 @@ module MagLove
         # invoke asset compilation
         invoke(Fonts, :compile, [], {})
         invoke(Assets, :compile, [], { theme: options.theme })
+        invoke(Assets, :compress, [], { theme: options.theme })
 
         # update theme
         info("▸ Synchronizing Metadata")
@@ -109,9 +110,10 @@ module MagLove
         hydra.run
 
         # upload css/js
-        info("▸ Synchronizing JavaScript and Stylesheet")
-        theme.upload_stylesheet(theme_dir(root: "dist").file("theme.css").to_s)
+        info("▸ Synchronizing JavaScript")
         theme.upload_javascript(theme_dir(root: "dist").file("theme.js").to_s)
+        info("▸ Synchronizing Stylesheet")
+        theme.upload_stylesheet(theme_dir(root: "dist").file("theme.css").to_s)
 
         # upload templates
         info("▸ Synchronizing Templates")
