@@ -111,7 +111,9 @@ module Workspace
       if extension == "js"
         set(Closure::Compiler.new.compile(contents))
       elsif extension == "css"
-        set(CSSminify.compress(contents))
+        runtime = ExecJS.compile(Pathname(File.dirname(__FILE__)).join("../../vendor/autoprefixer.js").read)
+        results = runtime.call("(function(css) { return autoprefixer.process(css).css; })", [contents])
+        set(CSSminify.compress(results))
       end
       self
     end
