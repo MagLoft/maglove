@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'hamloft', "~> 0.2.4"
   s.add_runtime_dependency "activesupport", ">= 4.0"
   s.add_runtime_dependency "actionpack", ">= 4.0"
-  s.add_runtime_dependency "maglove-widgets", "~> 1.0"
+  s.add_runtime_dependency "maglove-widgets", "~> 2.0"
   s.add_runtime_dependency "open_uri_redirections", "~> 0.2"
   s.add_runtime_dependency "logging", "~> 2.0"
   s.add_runtime_dependency "tilt", "~> 1.4"
