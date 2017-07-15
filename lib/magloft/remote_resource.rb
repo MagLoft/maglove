@@ -5,7 +5,7 @@ module MagLoft
 
     def initialize(attributes = {})
       allowed_attributes = attributes.slice(*self.class.remote_attributes)
-      Dialers::AssignAttributes.call(self, allowed_attributes.without(:id))
+      Dialers::AssignAttributes.call(self, allowed_attributes.except(:id))
     end
 
     def changed?
@@ -22,7 +22,7 @@ module MagLoft
         if self.id.nil?
           transformable = Api.client.api_caller.post(self.class.endpoint, self.changed_data)
         else
-          transformable = Api.client.api_caller.put("#{self.class.endpoint}/#{self.id}", self.changed_data.without(:id))
+          transformable = Api.client.api_caller.put("#{self.class.endpoint}/#{self.id}", self.changed_data.except(:id))
         end
         transformable.transform_to_existing(self)
         self.clear_changed_data!
