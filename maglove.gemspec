@@ -15,7 +15,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = '>= 2.4.7'
   s.add_runtime_dependency "bundler", "~> 1.10"
   s.add_runtime_dependency "thor", "~> 0.19"
-  s.add_runtime_dependency 'hamloft', "~> 0.2.6"
+  s.add_runtime_dependency 'hamloft', "~> 2.0"
   s.add_runtime_dependency "activesupport", ">= 4.0"
   s.add_runtime_dependency "actionpack", ">= 4.0"
   s.add_runtime_dependency "maglove-widgets", "~> 2.0"
