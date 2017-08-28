@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    maglove (2.0.2)
+    maglove (2.0.4)
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       bundler (~> 1.10)
@@ -106,7 +106,7 @@ GEM
     haml (5.0.2)
       temple (>= 0.8.0)
       tilt
-    hamloft (2.0.2)
+    hamloft (2.0.4)
       haml (~> 5.0)
       nokogiri (~> 1.8)
     http_parser.rb (0.6.0)
@@ -131,7 +131,7 @@ GEM
       multi_json (~> 1.10)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
-    maglove-widgets (2.0.2)
+    maglove-widgets (2.0.4)
       hamloft (~> 2.0)
     mini_portile2 (2.2.0)
     minitest (5.10.3)
