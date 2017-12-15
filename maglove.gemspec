@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "This gem contains development and built tools for creating MagLoft themes."
   s.required_rubygems_version = '>= 2.4.7'
   s.add_runtime_dependency "bundler", "~> 1.10"
-  s.add_runtime_dependency 'haml', "~> 4.0"
+  s.add_runtime_dependency 'haml', ">= 4.0"
   s.add_runtime_dependency "thor", "~> 0.19"
   s.add_runtime_dependency 'hamloft', "~> 0.2.4"
   s.add_runtime_dependency "activesupport", ">= 4.0"
