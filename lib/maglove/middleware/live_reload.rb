@@ -63,6 +63,8 @@ module MagLove
             if workspace_file(".", filename).exists? and event != :delete
               if filename =~ %r{^src/base/#{theme_config(:base_version)}/.*\.coffee}
                 path = "theme.coffee"
+              elsif filename =~ %r{^src/base/#{theme_config(:base_version)}/.*\.js}
+                path = "theme.coffee"
               elsif filename =~ %r{^src/base/#{theme_config(:base_version)}/.*\.less}
                 path = "theme.less"
               elsif filename =~ %r{^src/base/#{theme_config(:base_version)}/.*\.scss}
@@ -72,6 +74,8 @@ module MagLove
               elsif filename =~ %r{^src/themes/#{@theme}/.*\.scss}
                 path = "theme.scss"
               elsif filename =~ %r{^src/themes/#{@theme}/.*\.coffee}
+                path = "theme.coffee"
+              elsif filename =~ %r{^src/themes/#{@theme}/.*\.js}
                 path = "theme.coffee"
               else
                 path = filename.gsub("src/themes/#{@theme}/", '')

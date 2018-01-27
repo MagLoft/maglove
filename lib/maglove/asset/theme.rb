@@ -20,6 +20,7 @@ module MagLove
         "less" => "css",
         "scss" => "css",
         "coffee" => "js",
+        "js" => "js",
         "yml" => "json"
       }
 
